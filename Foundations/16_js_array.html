@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <p id="demo"></p>
+
+    <script>
+        //Create arrays
+        car1 = "Volvo"
+        const array1 = ["Fiat", car1, 25]; //diff types are permited
+        array1[0] = "Ferrari"
+        array1.push("Lamborgini");
+        array1[array1.length - 1] = "ford";
+
+        const cars = [];
+        cars[0] = "Saab";
+        cars[2] = car1; //you can jump indexes
+
+        const cars2 = new Array("Fiat", "Volvo", car1, 30);
+
+        let car2 = cars2[0];
+
+        //identify arrays
+        let fruits = ["Banana", "Orange", "Apple"];
+        Array.isArray(fruits); 
+        (fruits instanceof Array); 
+
+        // Array elements can be objects
+        // myArray[0] = Date.now;
+        // myArray[1] = myFunction;
+        // myArray[2] = myCars;
+
+        //Looping
+        let fLen = fruits.length;
+        let text = "<ul>";
+        for (let i = 0; i < fLen; i++) {
+            text += "<li>" + fruits[i] + "</li>";}
+        text += "</ul>";
+        document.getElementById("demo").innerHTML = text;
+
+        let text2 = "<ul>";
+        fruits.forEach(myFunction);
+        text2 += "</ul>";
+        function myFunction(value) {
+            text2 += "<li>" + value + "</li>";
+        } 
+
+        for (let i in fruits){console.log(i)} //prints indexes skipping undefined values
+        for (let i of fruits){console.log(i)} //prints values including undefined values
+
+
+        //Objects
+        const myObj = {
+        name: "John",
+        age: 30,
+        cars: [
+            {name:"Ford", models:["Fiesta", "Focus", "Mustang"]},
+            {name:"BMW", models:["320", "X3", "X5"]},
+            {name:"Fiat", models:["500", "Panda"]}]
+        } 
+        myObj.name; 
+        myObj.cars instanceof Array; //true
+
+        let x;
+        for (let i in myObj.cars) {
+            x += "<h1>" + myObj.cars[i].name + "</h1>";
+            for (let j in myObj.cars[i].models) {
+                x += myObj.cars[i].models[j];
+            }
+        }
+
+        //Array methods
+        fruits.length;
+        fruits.sort();
+        fruits.at(2);
+        fruits.join('*'); //"Banana*Orange*Apple"
+        fruits.push("kiwi");
+        fruits.pop(); //remove last item of array and return it
+        fruits.shift(); //removes first element and moves all others
+        fruits.unshift("Lemon");  //add in first place and moves all others
+        delete fruits[0]; //remove element and leave undefinied value
+        let morefruits  = fruits.concat(["papaia","acerola"]); 
+        fruits.copyWithin(2, 0); //copy element in index 0 to index 2
+        fruits.copyWithin(2, 0, 2);  //Copy to index 2, the elements from index 0 to 2 (so elements 0 and 1)
+        fruits.splice(2, 0, "Lemon", "Kiwi"); //1st arg is number of added elements, 2nd arg is number of elements
+        // removed and the other args are the elements
+        //  ["Banana", "Orange", "Apple", "Mango"] ->  ["Banana", "Orange", "Lemon", "Kiwi"] 
+        fruits.splice(2, 2, "Lemon", "Kiwi");
+        //  ["Banana", "Orange", "Apple", "Mango"] ->  ["Banana", "Orange", "Lemon", "Kiwi"] 
+        fruits.splice(2, 1); 
+        //  ["Banana", "Orange", "Apple", "Mango"] ->  ["Banana", "Orange", "Mango"] 
+        fruits.toSpliced(2, 1);
+        // same as splice but creates NEW array keeping the original
+        fruits.slice(2); // take elements from this index onwards
+        fruits.slice(1,3); // take elements from index 1 to 3
+        fruits.toString(); //convert to string
+        fruits.map(function(x){return x.toUpperCase()});
+        fruits.filter(fruit => fruit.startsWith("B")); //return only objects that satisfy function
+
+        // The copyWithin() method does not change the length of the array.
+        const myArr = [[1,2],[3,4],[5,6]];
+        const newArr = myArr.flat();
+        
+
+    </script>
+    
+</body>
+</html>
