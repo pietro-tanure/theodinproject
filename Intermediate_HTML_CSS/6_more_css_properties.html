@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    /* There are 8 background properties:
+    Initial value	as each of the properties of the shorthand:
+    background-image: none
+    background-position: 0% 0%
+    background-size: auto auto
+    background-repeat: repeat
+    background-origin: padding-box
+    background-clip: border-box
+    background-attachment: scroll
+    background-color: transparent */
+    .background{
+        background: no-repeat center/80% url("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQAnI33utT_AfatFvwqr9LLt599wJoIriqyIw&s");
+        /* background: no-repeat center/80% url("6_test.png"); */
+        width: 200px;
+        height: 500px;
+        border: solid 2px
+    }
+    .background2 {
+    background: url("https://i0.wp.com/images.onwardstate.com/uploads/2015/05/oie_14175751vZSQRLEn.gif?fit=650%2C408&ssl=1") #99f repeat-y fixed;
+    width: 200px;
+    height: 500px;
+    border: solid 2px
+    }
+
+    /* border
+    This property is a shorthand for the following CSS properties:
+    border-color
+    border-style
+    border-width: as each of the properties of the shorthand:
+        border-top-width: medium
+        border-right-width: medium
+        border-bottom-width: medium
+        border-left-width: medium
+    */
+    .border{
+        border: medium dashed green;
+    }
+    .border2{/* border + outline + box shadow */
+        border: 0.5rem outset pink;
+        outline: 0.5rem solid khaki;
+        box-shadow: 0 0 0 2rem skyblue;
+        border-radius: 12px;
+        font: bold 1rem sans-serif;
+        margin: 5rem;
+        padding: 1rem;
+        outline-offset: 0.5rem;
+    }
+
+    /* box shadow */
+    .boxshadow {
+        padding: 20px;
+        box-shadow:
+            inset 0 -3em 3em rgb(0 200 0 / 30%),
+            0 0 0 5px white,
+            1.3em 0.0em 1em 1em rgb(200 0 0 / 60%); /* offset-x offset-y blur-radius spread-radius */
+            margin: 5rem;
+    }
+    .boxshadow2{
+        box-shadow:
+            0 0 0 2em #f4aab9,
+            0 0 0 4em #66ccff;
+        margin: 4em;
+        padding: 1em;
+    }
+    
+    /* overflow: visible;
+    overflow: hidden;
+    overflow: clip;
+    overflow: scroll;
+    overflow: auto;
+    overflow: hidden visible; */
+    p.visible {
+    overflow: visible;
+    }
+    p.hidden {
+    overflow: hidden;
+    }
+    p.clip {
+    overflow: clip;
+    overflow-clip-margin: 1em;
+    }
+    p.scroll {
+    overflow: scroll;
+    }
+    p.auto {
+    overflow: auto;
+    }
+    p.overlay {
+    overflow: overlay;
+    }
+
+    /* opacity */
+    img .opacity{
+        opacity: 0.75;
+    }
+    img.opacity:hover{
+        opacity: 0.2;
+    }
+
+
+
+</style>
+<body>
+    <div class="background"> Text over</div>
+    <div class="background2"> another over djsaoidjao djasidoa dsiajdoae ijfe ijfei feijs aisof vemee vjica eiomfkfeadu cuencand</div>
+    <div class="border">ajdasj sadjaids eiemde asdoakd skoda dskaod eie daidjaia i</div>
+    <div class="border2">sjadods doajsdpas dnoisancsaiadfnia cjiasdnsa oicsaic sci sjadods</div>
+    <div class="boxshadow">jisioad disadaod sidjas dsaiodsa ds iosc ao caisncos cias csinciasn oc</div>
+    <div>
+        <div>
+            ijjsaod sajias doaisda dsjoias
+        </div>
+        <div>
+            jiosjda odisad sod asda
+        </div>
+    </div>
+    
+    <div>
+        <code>visible</code>
+        <p class="visible">
+            Maya Angelou: "I've learned that people will forget what you said, people
+            will forget what you did, but people will never forget how you made them
+            feel."
+        </p>
+        </div>
+        
+        <div>
+        <code>hidden</code>
+        <p class="hidden">
+            Maya Angelou: "I've learned that people will forget what you said, people
+            will forget what you did, but people will never forget how you made them
+            feel."
+        </p>
+        </div>
+        
+        <div>
+        <code>clip</code>
+        <p class="clip">
+            Maya Angelou: "I've learned that people will forget what you said, people
+            will forget what you did, but people will never forget how you made them
+            feel."
+        </p>
+        </div>
+        
+        <div>
+        <code>scroll</code>
+        <p class="scroll">
+            Maya Angelou: "I've learned that people will forget what you said, people
+            will forget what you did, but people will never forget how you made them
+            feel."
+        </p>
+        </div>
+        
+        <div>
+        <code>auto</code>
+        <p class="auto">
+            Maya Angelou: "I've learned that people will forget what you said, people
+            will forget what you did, but people will never forget how you made them
+            feel."
+        </p>
+        </div>
+        
+        <div>
+        <code>overlay</code>
+        <p class="overlay">
+            Maya Angelou: "I've learned that people will forget what you said, people
+            will forget what you did, but people will never forget how you made them
+            feel."
+        </p>
+    </div>
+
+    <img src="6_test.png" alt="" class="opacity">
+      
+</body>
+</html>

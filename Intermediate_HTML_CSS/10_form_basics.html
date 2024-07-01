@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .form-control {
+            font-family: system-ui, sans-serif;
+            font-size: 2rem;
+            font-weight: bold;
+            line-height: 1.1;
+            }
+
+        /* reset the native checkbox input styles */
+        input[type="checkbox"] {
+            /* Add if not using autoprefixer */
+            -webkit-appearance: none;
+            appearance: none;
+            /* For iOS < 15 to remove gradient background */
+            background-color: #fff;
+            /* Not removed via appearance */
+            margin: 0;
+            }
+
+        input[type="checkbox"] {
+            appearance: none;
+            background-color: #fff;
+            margin: 0;
+            font: inherit;
+            color: currentColor;
+            width: 1.15em;
+            height: 1.15em;
+            border: 0.15em solid currentColor;
+            border-radius: 0.15em;
+            transform: translateY(-0.075em);
+            }
+
+        .form-control + .form-control {
+            margin-top: 1em;
+            }
+        
+        input[type="checkbox"] {
+            display: grid;
+            place-content: center;
+            }
+        
+        input[type="checkbox"]::before {
+            content: "";
+            width: 0.65em;
+            height: 0.65em;
+            transform: scale(0);
+            transition: 120ms transform ease-in-out; /* animation when check */
+            box-shadow: inset 1em 1em var(--form-control-color);
+            background-color: CanvasText;
+            }
+        
+        input[type="checkbox"]:checked::before {
+            transform: scale(1);
+            }
+
+        /* create checkmark shape */
+        input[type="checkbox"]::before {
+            transform-origin: bottom left;
+            clip-path: polygon(14% 44%, 0 65%, 50% 100%, 100% 16%, 80% 0%, 43% 62%);
+            }
+
+        /* focus state style */
+        input[type="checkbox"]:focus {
+            outline: max(2px, 0.15em) solid currentColor;
+            outline-offset: max(2px, 0.15em);
+            }
+
+        /* style for disabled checkboxes */
+        :root {
+            --form-control-disabled: #959495;
+        }
+        input[type="checkbox"]:disabled {
+            --form-control-color: var(--form-control-disabled);
+            color: var(--form-control-disabled);
+            cursor: not-allowed;
+        }
+
+        input{
+            accent-color: purple;
+        }
+
+
+    </style>
+</head>
+<body>
+    <form action="https://httpbin.org/post" method="post">
+        <fieldset>
+            <legend>Name info</legend>
+            <div>
+                <label for="first_name">First Name:</label> <!-- label form control -->
+                <input type="text" name="first_name" id="first_name" placeholder="Ana"> <!-- input form control -->
+            </div>
+            <div>
+                <label for="last_name">Last Name:</label>
+                <input type="text" name="last_name" id="last_name" placeholder="Pereira Alvez">
+            </div>
+        </fieldset>
+        <div>
+            <label for="age">Age:</label>
+            <input type="number" name="age" id="age" placeholder="26">
+        </div>
+        <div>
+            <label for="dob">Date of Birth:</label>
+            <input type="date" id="dob" name="dob">
+        </div>
+        <div>
+            <label for="amount">Amount:</label>
+            <input type="number" id="amount" name="amount">
+        </div>
+        <div>
+            <label for="user_email">Email Address:</label>
+            <input type="email" id="user_email" name="email" placeholder="you@example.com">
+            <label for="user_password">Password:</label>
+            <input type="password" id="user_password" name="password">
+        </div>
+        <button type="submit">Submit</button>
+        <button type="reset">Reset</button>
+        <button type="button">Generic for anything</button>
+    </form>
+    <!-- the response is
+    "form": {
+        "age": "30", 
+        "email": "caba@hotmail.com", 
+        "first_name": "Pedro", 
+        "last_name": "Almeida"
+    },   -->
+
+
+    <!-- You can use form controls outside forms -->
+    <div>
+        <label for="username">What's your name?</label>
+        <input type="text"id="username">
+        <button class="greet-btn">Greet Me</button>
+    </div>
+
+    <div>
+        <textarea rows="20" cols="60">Some initial content</textarea>
+    </div>
+
+    <select name="Car">
+        <option value="mercedes">Mercedes</option>
+        <option value="tesla">Tesla</option>
+        <option value="volvo" selected>Volvo</option>
+        <option value="bmw">BMW</option>
+        <option value="mini">Mini</option>
+        <option value="ford">Ford</option>
+    </select>
+
+    <select name="fashion" id="">
+        <optgroup label="Clothing">
+            <option value="t-shirt">T-shirt</option>
+            <option value="blouse">Blouse</option>
+        </optgroup>
+        <optgroup label="Foot wear">
+            <option value="flipflop">Flip flop</option>
+            <option value="shoe">Shoe</option>
+        </optgroup>
+    </select>
+
+    <fieldset>
+        <legend>Ticket types</legend>
+        <!-- by keeping the same 'name' attribute html knows they belong to the same group 
+        ALLOWS ONLY ONE OPTION CHECKED-->
+        <div>
+            <input type="radio" id="child" name="ticket_type" value="child">
+            <label for="child">Child</label>
+        </div>
+        <div>
+            <input type="radio" id="adult" name="ticket_type" value="adult" checked> <!-- checked attribute defines the default -->
+            <label for="adult">Adult</label>
+        </div>
+        <div>
+            <input type="radio" id="senior" name="ticket_type" value="senior">
+            <label for="senior">Senior</label>
+        </div>
+    </fieldset>
+
+    <h1>Pizza Toppings</h1>
+    <div>
+        <input type="checkbox" id="sausage" name="topping" value="sausage">
+        <label for="sausage">Sausage</label>
+    </div>
+    <div>
+        <input type="checkbox" id="onions" name="topping" value="onions">
+        <label for="onions">Onions</label>
+    </div>
+    <div>
+        <input type="checkbox" id="pepperoni" name="topping" value="pepperoni" checked disabled>
+        <label for="pepperoni">Pepperoni</label>
+    </div>
+    <div>
+        <input type="checkbox" id="mushrooms" name="topping" value="mushrooms" disabled>
+        <label for="mushrooms">Mushrooms</label>
+    </div>
+
+    <h1></h1>
+    <div>
+        <input type="checkbox" id="newsletter" name="news_letter" checked>
+        <label for="newsletter">Send me the news letter</label>
+    </div>
+
+
+    <h1 class="greeting"></h1>
+    <script>
+        const name = document.querySelector("#username")
+        const greetMeButton = document.querySelector(".greet-btn")
+        const greetingOutput = document.querySelector(".greeting")
+
+        greetMeButton.addEventListener('click', (event) => {
+        greetingOutput.innerText = `Hello ${name.value}`;
+        })
+    </script>
+
+</body>
+</html>

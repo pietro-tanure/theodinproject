@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div class="conceiver"></div>
+    <span id="id"></span>
+    <div class="class-1 class-2" id="id-1"></div> <!-- div.class-1.class-2#id-1 -->
+    <div class="class"></div>
+    <div id="id"></div>  <!--.#id -->
+    <div data-selecter=""></div> <!-- [data-selected] -->
+    <div class="active" data-selected=""></div> <!-- .active[data-selected] -->
+    <div data-selected="djasi" class="active">something</div>
+    <div class="purple"><span class="cyan"></span></div>    <!-- div.purple>span.cyan -->
+
+    <header>
+        <nav>
+            <ul>
+                <li></li> <!-- header>nav>ul>    (header>div)+main+nav -->
+
+                <li></li>
+                <li></li>
+            </ul>
+        </nav>
+    </header>
+
+    <nav>
+        <ul>     <!-- nav>ul>li*3.class-${item $$} -->
+            <li class="class-1">item 01</li>
+            <li class="class-2">item 02</li>
+            <li class="class-3">item 03</li>
+        </ul>
+    </nav>
+
+    <header></header>     <!-- header+main+nav -->
+    <main></main>
+    <nav></nav>
+
+    <header> <!-- header>div^main+nav -->        <!-- (header>div)+main+nav -->
+        <div></div>
+    </header>
+    <main></main>
+    <nav></nav>
+
+    <header>     <!-- (header>h2{header}+nav>ol>li*5>a{Link $})+main+footer -->
+        <h2>header</h2>
+        <nav>
+            <ol>
+                <li><a href="">Link 1</a></li>
+                <li><a href="">Link 2</a></li>
+                <li><a href="">Link 3</a></li>
+                <li><a href="">Link 4</a></li>
+                <li><a href="">Link 5</a></li>
+            </ol>
+        </nav>
+    </header>
+    <main></main>
+    <footer></footer>
+    
+
+</body>
+</html>
+

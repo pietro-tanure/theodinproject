@@ -1,0 +1,138 @@
+<!-- FONTS WEBSITES:
+    https://v-fonts.com/ 
+    https://www.axis-praxis.org
+
+    FREE:
+    https://fonts.google.com/
+    https://www.fontsquirrel.com/
+    https://www.dafont.com/fr/
+    https://everythingfonts.com/
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="preconnect" href="https://fonts.com" crossorigin> <!-- preconnect to font website for downnload optimization -->
+    <style>
+        @font-face {
+            font-family: "Open Sans";
+            src: url("/fonts/OpenSans-Regular-webfont.woff2") format("woff2");
+            unicode-range: U+0025-00FF; /* only load a subset of the font characters that will be used */
+        }
+
+        @import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');         /* get font online */
+
+        @font-face {
+            font-family: my-cool-font;
+            src: url(../fonts/the-font-file.woff);
+            /* src: url(5_AlexBrush-Regular.ttf); */
+        }         
+        h1 {
+            font-family: my-cool-font, sans-serif;
+            font-display: swap; /* uses system font until web font loads */
+        }
+        
+        @font-face { /* generated in: https://www.fontsquirrel.com/tools/webfont-generator */
+            font-family: 'alex_brushregular';
+            src: url('5_fonts/5_alexbrush-regular-webfont.woff2') format('woff2'),
+                url('5_fonts/5_alexbrush-regular-webfont.woff') format('woff');
+            font-weight: normal;
+            font-style: normal;
+        }
+        
+        .myfont{
+            font-family:  'alex_brushregular';
+        }
+
+        body {
+            /* system font stack */
+            font-family: system-ui, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";}
+
+        h2 {
+            font-style: italic;}
+
+        .wide{
+            letter-spacing: 0.5em;}
+        .narrow{
+            letter-spacing: -0.2em;}
+
+        @media (min-width: 30em) {
+        html {
+            font-size: 125%;
+        }
+        }
+
+        p.line-height{
+            line-height: 2;}
+
+        .capitalized{
+            text-transform: capitalize;
+            /* text-transform: capitalize;
+            text-transform: uppercase;
+            text-transform: lowercase;
+            text-transform: full-width;
+            text-transform: full-size-kana; */
+        }
+
+        .shadow{
+            text-shadow: 100px 30px 4px rgb(143, 11, 33); 
+            /* offset-x offset-y blur color; */
+        }
+
+        .overflowing {
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        /* adapt font size to screen size */
+        @media (min-width: 30em) {
+        html {
+            font-size: 125%;}}
+        @media (min-width: 40em) {
+        html {
+            font-size: 150%;}}
+        @media (min-width: 50em) {
+        html {
+            font-size: 175%;}}
+        @media (min-width: 60em) {
+        html {
+            font-size: 200%;}}
+
+        html {
+            font-size: clamp(0.5rem, 0.75rem + 1.5vw, 1.5rem);
+        } /* min-size, calc(), max-size */
+
+        html {
+        max-inline-size: 66ch;
+        } /* limits amount of characters on line to 66 */
+
+
+    </style>
+</head>
+<body>
+    <h1>Tabaco massa</h1>
+    <h1 class="wide" style="font-size: 2.5vw;">Texto largo com tamanho relativo essa fonte não muda com zoom out</h1>
+    <h1 style="font-size: 1.5rem;">Tamanho é dado por 1.5rem portanto diminui mto bom o zoom</h1>
+    <h1 style="font-size: calc(0.75rem + 1.5vw);">Tamanho é dado por calc(0.75rem + 1.5vw) isso é oferece um balanço entre as duas últimas opções</h1>
+    <h1 class="narrow">Tabaco massa fino</h1>
+    <h2 class="myfont">another rubish in downloaded font</h2>
+    <p>We use <em>em element</em> for emphasis</p>
+    <p class="line-height">Lorem ipsum dolor sit amet consectetur adipisicing elit. 
+        Ratione eius quibusdam ut, maiores quasi, iure architecto, necessitatibus sed
+        culpa maxime distinctio ipsa nam repellat nostrum laboriosam tempora. Mollitia, pariatur velit!</p>
+    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. 
+        Ratione eius quibusdam ut, maiores quasi, iure architecto, necessitatibus sed
+        culpa maxime distinctio ipsa nam repellat nostrum laboriosam tempora. Mollitia, pariatur velit!</p>
+    <p class="capitalized">Lorem ipsum dolor sit amet consectetur adipisicing elit. 
+        Ratione eius quibusdam ut, maiores quasi, iure architecto, necessitatibus sed
+        culpa maxime distinctio ipsa nam repellat nostrum laboriosam tempora. Mollitia, pariatur velit!</p>
+    
+    <h1 class="shadow">Shadow in letter</h1>
+    <h2 class="overflowing">Overflowing effect make large text truncate.   Lorem ipsum dolor sit amet consectetur adipisicing elit. 
+        Ratione eius quibusdam ut, maiores quasi, iure architecto, necessitatibus sed
+        culpa maxime distinctio ipsa nam repellat nostrum laboriosam tempora. Mollitia, pariatur velit!</h2>
+</body>
+</html>

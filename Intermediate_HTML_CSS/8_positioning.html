@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        /* 
+        https://www.youtube.com/watch?v=jx5jmI0UlXU
+        - default positioning is Static
+        - Relative
+        - Absolute
+        - Fixed
+        - Sticky
+         */
+        
+        .parent{
+            /* removes elem from doc flow, but child elements are still relative to it */
+            position: absolute;
+            top: 50px;
+            height: 200vh;
+        }
+
+        .child-one{
+            position: relative;
+            left: 10px;
+            top: 10px;
+        }
+
+        .child-two{ 
+            /* stays in place when scroll*/
+            position: fixed;
+            top: 0;
+            right: 200px;
+        }
+
+        .child-three{
+            /* become fixed position when scroll it outside of page */
+            position: sticky;
+            top:40px;
+        }
+    </style>
+</head>
+<body>
+    <div class="parent">
+        Parent
+        <div class="child-one child">One</div>
+        <div class="child-two child">Two</div>
+        <div class="child-three child">Three</div>
+    </div>
+    
+</body>
+</html>

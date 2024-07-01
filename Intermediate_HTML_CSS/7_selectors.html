@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .parent div{
+            /* selects div elements no matter how deep inside parent they are, in this examples selects every grand-chil and child element */
+        }
+
+        /* This rule will only select the divs with the class child */
+        main > div {
+        /* Our cool CSS */
+        }
+
+        /* This rule will only select the divs with the class grand-child */
+        main > div > div {
+        /* More cool CSS */
+        }
+
+        /* This rule will only select the div with the class child group2 */
+        .group1 + div {
+        /* Our cool CSS */
+        }
+
+        /* This rule will only select the div with the class child group3 */
+        .group1 + div + div {
+        /* More cool CSS */
+        }
+
+        /* This rule will select all of .group1's siblings - in this case the 2nd and 3rd .child divs */
+        .group1 ~ div {
+        /* Our cool CSS */
+        }
+
+        /* pseudo-classes:
+        :hover
+        :first-child
+        :last-child
+        :empty
+        :only-child
+        :active
+        :link
+        :visited
+        :nth-child()
+        :focus*/
+
+        /* pseudo-elements: allow to effect things that are not elements
+        ::marker     bullet points in lists
+        ::after
+        ::before
+        ::backdrop
+        ::first-line     in this case the property will apply to the first line of the element and reliably adapt
+        if the words in the first line change, for example if  
+        ::selection      allows you to change the highlighting when a user selects text on the page.
+        */
+        .box::before {
+        content: "This should show before the other content. ";
+        }
+        .box::before {
+        content: "";
+        display: block;
+        width: 100px;
+        height: 100px;
+        background-color: rebeccapurple;
+        border: 1px solid black;
+        }
+
+
+        /* Attribute selectors [] 
+        [attribute^="value"] - ^= Will match strings from the start.
+        [attribute$="value"] - $= Will match strings from the end.
+        [attribute*="value"] - *= The wildcard selector will match anywhere inside the string.
+        a[rel~="tag"] 	Attribute Spaced Selector
+        a[lang|="en"] 	Attribute Hyphenated Selector
+        */
+        [src] {
+            /* This will target any element that has a src attribute. */
+        }
+        img[src] {
+            /* This will only target img elements that have a src attribute. */
+        }
+        img[src="puppy.jpg"] {
+            /* This will target img elements with a src attribute that is exactly "puppy.jpg" */
+        }
+        [class^='aus'] {
+        /* Classes are attributes too!
+            This will target any class that begins with 'aus':
+            class='austria'
+            class='australia'
+        */
+        }
+        [src$='.jpg'] {
+        /* This will target any src attribute that ends in '.jpg':
+        src='puppy.jpg'
+        src='kitten.jpg'
+        */
+        }
+
+        [for*='ill'] {
+        /* This will target any for attribute that has 'ill' anywhere inside it:
+        for="bill"
+        for="jill"
+        for="silly"
+        for="ill"
+        */
+        }
+        /* All divs without a `lang` attribute are italicized. */
+        div:not([lang]) {
+        font-style: italic;
+        }
+        div[lang="pt"] {
+        color: green;
+        }
+
+
+
+    </style>
+</head>
+<body>
+    <main class="parent">
+        <div class="child group1">
+          <div class="grand-child group1"></div>
+        </div>
+        <div class="child group2">
+          <div class="grand-child group2"></div>
+        </div>
+        <div class="child group3">
+          <div class="grand-child group3"></div>
+        </div>
+
+        <p class="box">Content in the box in my HTML page.</p>
+      </main>
+    
+</body>
+</html>

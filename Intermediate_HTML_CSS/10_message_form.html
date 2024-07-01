@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body {
+        /* Center the form on the page */
+        text-align: center;
+        }
+
+        form fieldset {
+        display: inline-block;
+        /* Form outline */
+        padding: 1em;
+        border: 1px solid #ccc;
+        border-radius: 1em;
+        }
+
+        ul {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+        }
+
+        form li + li {
+        margin-top: 1em;
+        }
+
+        label {
+        /* Uniform size & alignment */
+        display: inline-block;
+        min-width: 90px;
+        text-align: right;
+        }
+
+        input,
+        textarea {
+        /* To make sure that all text fields have the same font settings
+            By default, textareas have a monospace font */
+        font: 1em sans-serif;
+        /* Uniform text field size */
+        width: 300px;
+        box-sizing: border-box;
+        /* Match form field borders */
+        border: 1px solid #999;
+        }
+
+        #check{
+            width: auto;
+        }
+
+        input:focus,
+        textarea:focus {
+        /* Additional highlight for focused elements */
+        border-color: #000;
+        }
+
+        textarea {
+        /* Align multiline text fields with their labels */
+        vertical-align: top;
+        /* Provide space to type some text */
+        height: 5em;
+        }
+
+        .button {
+        /* Align buttons with the text fields */
+        padding-left: 90px; /* same size as the label elements */
+        }
+
+        button {
+        /* This extra margin represent roughly the same space as the space
+            between the labels and their text fields */
+        margin-left: 0.5em;
+        }
+
+    </style>
+</head>
+<body>
+    <form action="https://httpbin.org/post" method="post">
+        <p>Required fields are followed by <span aria-label="required">*</span>.</p>
+        <fieldset>
+            <legend>Contact</legend>
+            <ul>
+                <li>
+                    <label for="name">Name: <span aria-label="required">*</span> </label>
+                    <input type="text" name="name" id="name" placeholder="Pedro Almeida">
+                </li>
+                <li>
+                    <label for="email">E-mail:</label>
+                    <input type="email" name="email" id="email" placeholder="example@gmail.com">
+                </li>
+                <li>
+                    <label for="textarea"><span aria-label="required">*</span></label>
+                    <textarea name="textarea" id="textarea" cols="20" rows="3" placeholder="Type your message"></textarea>
+                </li>
+                <li>
+                    <div>
+                        <input type="checkbox" id="check" name="subscribe" value="check">
+                        <label for="check">Subscribe to newsletter</label>
+                    </div>
+                </li>
+                <li>
+                    <button type="submit">Send message</button>
+                </li>
+            </ul>
+        </fieldset>
+    </form>
+</body>
+</html>
