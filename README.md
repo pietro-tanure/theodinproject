@@ -2,4 +2,4 @@ The [**Odin Project**](https://www.theodinproject.com/paths) is a free roadmap t
 
 https://www.theodinproject.com/about
 
-This is my personal study ressources with the concepts of each lesson turned into notes and codes.
+This is my personal study ressources with the concepts of each lesson turned into notes and codes. Each folder consists of a course available at: https://www.theodinproject.com/paths.

@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    .grid-container {
+    resize: both;
+    overflow: auto;
+    display: grid;
+    gap: 4px;
+    padding: 4px;
+    border: 1px solid grey;
+    background-color: skyblue;
+    grid-template-rows: repeat(2, 150px);
+    grid-template-columns: repeat(5, 150px);
+    }
+    .grid-item {
+    background-color: #444;
+    text-align: center;
+    color: #ddd;
+    font-family: sans-serif;
+    font-size: 1.5rem;
+    padding: 12px;
+    }
+
+    .container2 {
+    resize: both;
+    overflow: auto;
+    display: grid;
+    gap: 4px;
+    padding: 4px;
+    border: 1px solid grey;
+    background-color: skyblue;
+    grid-template-rows: repeat(2, 1fr);
+    grid-template-columns: repeat(5, 1fr);
+    }
+    .items2 {
+    background-color: #444;
+    text-align: center;
+    color: #ddd;
+    font-family: sans-serif;
+    font-size: 1.5rem;
+    padding: 12px;
+    }
+
+    .container3 {
+    resize: both;
+    overflow: auto;
+    display: grid;
+    gap: 4px;
+    padding: 4px;
+    border: 1px solid grey;
+    background-color: skyblue;
+    grid-template-rows: repeat(2, 1fr);
+    grid-template-columns: repeat(2, 2fr) repeat(3, 1fr);
+    }
+    .items3 {
+    background-color: #444;
+    text-align: center;
+    color: #ddd;
+    font-family: sans-serif;
+    font-size: 1.5rem;
+    padding: 12px;
+    }
+
+    .container4{
+    resize: both;
+    overflow: auto;
+    display: grid;
+    gap: 4px;
+    padding: 4px;
+    border: 1px solid grey;
+    background-color: skyblue;
+    grid-template-rows: repeat(2, 1fr);
+    grid-template-columns: repeat(2, 125px) repeat(3, 1fr);
+    }
+    .items4 {
+    background-color: #444;
+    text-align: center;
+    color: #ddd;
+    font-family: sans-serif;
+    font-size: 1.5rem;
+    padding: 12px;
+    }
+
+    .container5 {
+    resize: both;
+    overflow: auto;
+    display: grid;
+    gap: 4px;
+    padding: 4px;
+    border: 1px solid grey;
+    background-color: skyblue;
+    grid-template-rows: repeat(2, min(200px, 50%));
+    grid-template-columns: repeat(5, max(200px, 15%));
+    }
+    .items5 {
+    background-color: #444;
+    text-align: center;
+    color: #ddd;
+    font-family: sans-serif;
+    font-size: 1.5rem;
+    padding: 12px;
+    }
+
+    .container6 {
+    resize: both;
+    overflow: auto;
+    display: grid;
+    gap: 4px;
+    padding: 4px;
+    border: 1px solid grey;
+    background-color: skyblue;
+    grid-template-rows: repeat(2, 1fr);
+    grid-template-columns: repeat(5, minmax(150px, 200px));
+    /* grid-template-columns: repeat(5, clamp(150px, 20%, 200px));  CAN ALSO USE CLAMP, EVEN OUTSIDE GRID*/
+    }
+    .items6 {
+    background-color: #444;
+    text-align: center;
+    color: #ddd;
+    font-family: sans-serif;
+    font-size: 1.5rem;
+    padding: 12px;
+    }
+
+    .container7 {
+    resize: both;
+    overflow: auto;
+    display: grid;
+    gap: 4px;
+    padding: 4px;
+    border: 1px solid grey;
+    background-color: skyblue;
+    grid-template-rows: repeat(2, 1fr);
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    }
+    .items7 {
+    background-color: #444;
+    text-align: center;
+    color: #ddd;
+    font-family: sans-serif;
+    font-size: 1.5rem;
+    padding: 12px;
+    }
+
+    .container8 {
+    resize: both;
+    overflow: auto;
+    display: grid;
+    gap: 4px;
+    padding: 4px;
+    border: 1px solid grey;
+    background-color: skyblue;
+    grid-template-rows: repeat(2, 1fr);
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    }
+    .items8 {
+    background-color: #444;
+    text-align: center;
+    color: #ddd;
+    font-family: sans-serif;
+    font-size: 1.5rem;
+    padding: 12px;
+    }
+
+
+
+
+</style>
+<body>
+
+    <div class="grid-container">
+        <div class="grid-item">1</div>
+        <div class="grid-item">2</div>
+        <div class="grid-item">3</div>
+        <div class="grid-item">4</div>
+        <div class="grid-item">5</div>
+        <div class="grid-item">6</div>
+        <div class="grid-item">7</div>
+        <div class="grid-item">8</div>
+        <div class="grid-item">9</div>
+        <div class="grid-item">10</div>
+    </div>
+
+    <div class="container2">
+        <div class="items2">1</div>
+        <div class="items2">2</div>
+        <div class="items2">3</div>
+        <div class="items2">4</div>
+        <div class="items2">5</div>
+        <div class="items2">6</div>
+        <div class="items2">7</div>
+        <div class="items2">8</div>
+        <div class="items2">9</div>
+        <div class="items2">10</div>
+    </div>
+
+    <div class="container3">
+        <div class="items3">1</div>
+        <div class="items3">2</div>
+        <div class="items3">3</div>
+        <div class="items3">4</div>
+        <div class="items3">5</div>
+        <div class="items3">6</div>
+        <div class="items3">7</div>
+        <div class="items3">8</div>
+        <div class="items3">9</div>
+        <div class="items3">10</div>
+    </div>
+
+    <p>container4</p>
+    <div class="container4">
+        <div class="items4">5</div>
+        <div class="items4">5</div>
+        <div class="items4">5</div>
+        <div class="items4">5</div>
+        <div class="items4">5</div>
+        <div class="items4">5</div>
+        <div class="items4">5</div>
+        <div class="items4">5</div>
+        <div class="items4">5</div>
+        <div class="items4">5</div>
+    </div>
+    
+    <div class="container5">
+        <div class="items5">1</div>
+        <div class="items5">2</div>
+        <div class="items5">3</div>
+        <div class="items5">4</div>
+        <div class="items5">5</div>
+        <div class="items5">6</div>
+        <div class="items5">7</div>
+        <div class="items5">8</div>
+        <div class="items5">9</div>
+        <div class="items5">10</div>
+    </div>
+
+    <p>container6</p>
+    <div class="container6">
+        <div class="items6">1</div>
+        <div class="items6">2</div>
+        <div class="items6">3</div>
+        <div class="items6">4</div>
+        <div class="items6">5</div>
+        <div class="items6">6</div>
+        <div class="items6">7</div>
+        <div class="items6">8</div>
+        <div class="items6">9</div>
+        <div class="items6">10</div>
+    </div>
+
+    <div class="container7">
+        <div class="items7">1</div>
+        <div class="items7">2</div>
+        <div class="items7">3</div>
+        <div class="items7">4</div>
+        <div class="items7">5</div>
+        <div class="items7">6</div>
+        <div class="items7">7</div>
+        <div class="items7">8</div>
+        <div class="items7">9</div>
+        <div class="items7">10</div>
+    </div>
+
+    <p>container8</p>
+    <div class="container8">
+        <div class="items8">1</div>
+        <div class="items8">2</div>
+        <div class="items8">3</div>
+        <div class="items8">4</div>
+        <div class="items8">5</div>
+        <div class="items8">6</div>
+        <div class="items8">7</div>
+        <div class="items8">8</div>
+        <div class="items8">9</div>
+        <div class="items8">10</div>
+    </div>
+</body>
+</html>

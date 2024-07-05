@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+.container {
+  display: inline-grid;
+  grid-template: 40px 40px 40px 40px 40px / 40px 40px 40px 40px 40px;
+  background-color: lightblue; 
+}
+
+.container .room {
+  border: 1px solid;
+  font-size: 50%;
+  text-align: center;
+}
+
+.container #living-room {
+  grid-column-start: 1;
+  grid-column-end: 6;
+  grid-row-start: 1;
+  grid-row-end: 3;
+}
+
+.container #kitchen {
+  grid-column: 4 / 6;
+  grid-row: 3 / 6;
+}
+
+.container #bedroom {
+  grid-column-start: 2;
+  grid-column-end: 4;
+  grid-row-start: 3;
+  grid-row-end: 5;
+}
+
+.container #bathroom {
+  grid-column-start: 1;
+  grid-column-end: 2;
+  grid-row-start: 3;
+  grid-row-end: 6;
+}
+
+.container #closet {
+  grid-column-start: 2;
+  grid-column-end: 4;
+  grid-row-start: 5;
+  grid-row-end: 6;
+}
+
+.container2 {
+  display: inline-grid;
+  grid-template: 40px 40px 40px 40px 40px / 40px 40px 40px 40px 40px;
+  background-color: lightblue; 
+  grid-template-areas:
+    "living-room living-room living-room living-room living-room"
+    "living-room living-room living-room living-room living-room"
+    "bedroom bedroom bathroom kitchen kitchen"
+    "bedroom bedroom bathroom kitchen kitchen"
+    "closet closet . . ."    
+}
+
+.container2 .room {
+  border: 1px solid;
+  font-size: 50%;
+  text-align: center;
+}
+
+.container2 #living-room {
+   grid-area:  living-room;
+}
+
+.container2 #kitchen {
+  grid-area: kitchen;
+}
+
+.container2 #bedroom {
+  grid-area: bedroom;
+}
+
+.container2 #bathroom {
+  grid-area: bathroom;
+}
+
+.container2 #closet {
+  grid-area: closet;
+}
+
+</style>
+<body>
+    <div class="container">
+        <div class="room" id="living-room">Living Room</div>
+        <div class="room" id="kitchen">Kitchen</div>
+        <div class="room" id="bedroom">Bedroom</div>
+        <div class="room" id="bathroom">Bathroom</div>
+        <div class="room" id="closet">Closet</div>
+    </div>
+</body>
+
+<div class="container2">
+    <div class="room" id="living-room">Living Room</div>
+    <div class="room" id="kitchen">Kitchen</div>
+    <div class="room" id="bedroom">Bedroom</div>
+    <div class="room" id="bathroom">Bathroom</div>
+    <div class="room" id="closet">Closet</div>
+</div>
+</html>

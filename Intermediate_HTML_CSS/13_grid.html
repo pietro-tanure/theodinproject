@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    .cont1{
+        display: grid; /* inline-grid */
+        /* grid-template-rows: 2repeat(2, 20px) 30px auto 10px;
+        grid-template-columns: 80px 50px; */
+        /* grid-template: repeat(2, 20px [row-start]) auto [row-middle] 10px [row-end]/ 25% 50px; these are EXPLICIT DECLARATIONS */
+        grid-template-columns: [first] 40% [line2] 100px [line3] auto [col4-start] 100px [five] 50px [end];
+        grid-template-rows: [row1-start] 1fr [row1-end] 50px [third-row] 2fr [last-line];
+        /* row-gap: 50px;
+        column-gap: 20px; */
+        gap: 50px/20px;
+        border: 1px dashed blue;
+        /* height: 400px; */
+    
+        grid-auto-rows: 50px 20px; /* IMPLICIT ROWS HAVE THIS SIZE */
+        /* grid-template-columns: 50px; */ 
+    }
+
+    div{
+        border: 1px solid red;
+    }
+
+
+    .cont2 {
+    display: grid;
+    grid-template-columns: 50px 50px 50px 50px;
+    grid-template-rows: auto;
+    grid-template-areas: 
+        "header header header header"
+        "main main . sidebar"
+        "footer footer footer footer";
+    }
+    .header {
+    grid-area: header;
+    background-color: yellow;
+    }
+    .content {
+    grid-area: main;
+    background-color: red;
+    }
+    .sidebar {
+    grid-area: sidebar;
+    background-color: blue;
+    }
+    .footer {
+    grid-area: footer;
+    background-color: gray;
+    }
+
+
+    .cont3 {
+    display: grid;
+    grid-template-columns: [first] 10% [line2] 20% [line3] auto [col4-start] 20% [five] 10% [end];
+    grid-template-rows: [row1-start] 50px [row1-end] 100px [third-line] auto [last-line];
+    /* place-items: center; */
+    }
+    .item-a {
+    grid-column-start: 2;
+    grid-column-end: five;
+    grid-row-start: row1-start;
+    grid-row-end: 3; 
+    background-color: rgba(242, 255, 0, 0.5);
+    text-align: center;
+    /* justify-self: center; /* start end center stretch */
+    /* align-self: center;  start end center stretch */
+    /* place-self: center center; sets ALIGN AND JUSTIFY AT THE SAME TIME */
+    }       
+    .item-b {
+    grid-column-start: 1;
+    grid-column-end: span col4-start; /* spans until cold4-start col */
+    grid-row-start: 2;
+    grid-row-end: span 2; /* spans 2 rows */
+    background-color: rgba(255, 0, 0, 0.5);
+    text-align: center;
+    }
+    .item-c {
+    grid-column: 3 / span 2;
+    grid-row: third-line / 4;
+    background-color: rgba(0, 60, 255, 0.5);
+    text-align: center;
+    }
+    .item-d {
+    grid-area: 1 / col4-start / last-line / 6; /*  <row-start> / <column-start> / <row-end> / <column-end>; */
+    background-color: rgba(136, 136, 136, 0.5);
+    text-align: center;
+    }
+
+
+    .cont4 {
+        display: grid;
+        grid-template-rows: 25px 45px;
+        grid-template-columns: 25px 25px 100px;
+        grid-template-areas: 
+            "header header header" 
+            "footer footer main";
+    } 
+    /* THIS IS EQUIVALENT TO */
+    /* .cont4 {
+        display: grid;
+        grid-template:
+            [row1-start] "header header header" 25px [row1-end]
+            [row2-start] "footer footer main" 45px [row2-end]
+            / auto 50px auto;
+    } */
+
+</style>
+<body>
+    <container class="cont1">
+        <div>item 1</div>
+        <div>item 2</div>
+        <div>item 3</div>
+        <div>item 4</div>
+        <div>item 5</div>
+        <div>item 6</div>
+        <div>item 7</div> 
+        <div>item 8</div>
+        <div>item 9</div>
+        <div>item 10</div>
+        <div>item 11</div>  <!-- this is slotted in a new IMPLICIT row -->
+        <div>item 12</div>
+        <div>item 13</div>
+        <div>item 14</div>
+        <div>item 15</div>
+        <div>item 16</div>
+        <div>item 17</div>
+    </container>
+
+    <p></p>
+
+    <container class="cont2">
+        <div class="header">header</div>
+        <div class="content">content</div>
+        <div class="sidebar">side bar</div>
+        <div class="footer">footer</div>
+        <div>5</div>
+    </container>
+
+    <p></p>
+
+    <container class="cont3">
+        <div class="item-a">1</div>
+        <div class="item-b">2</div>
+        <div class="item-c">3</div>
+        <div class="item-d">4</div>
+        <div>5</div>
+    </container>
+
+    <p></p>
+
+    <container class="cont4">
+        <div class="header">1</div>
+        <div class="footer">2</div>
+        <div class="content">content</div>
+    </contaier>
+</body>
+</html>
