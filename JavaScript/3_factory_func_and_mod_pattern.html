@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        let globalAge = 23; // This is a global variable
+        // This is a function - and hey, a curly brace indicating a block
+        function printAge (age) {
+            var varAge = 34; // This is a function scoped variable
+            // This is yet another curly brace, and thus a block
+            if (age > 0) {
+                // This is a block-scoped variable that exists
+                // within its nearest enclosing block, the if's block
+                const constAge = age * 2;
+                console.log(constAge);
+            }
+            // ERROR! We tried to access a block scoped variable
+            // not within its scope
+            // console.log(constAge);
+        }
+        printAge(globalAge);
+        // ERROR! We tried to access a function scoped variable
+        // outside the function it's defined in
+        // console.log(varAge);
+
+        const User = function (name) {
+            this.name = name;
+            this.discordName = "@" + name;
+        }
+        // hey, this is a constructor - 
+        // then this can be refactored into a factory!
+        function createUser (name) {
+            const discordName = "@" + name;
+            return { name, discordName };
+        }
+        // and that's very similar, except since it's just a function,
+        // we don't need a new keyword
+
+        // shorthand notation of constructor
+        const name = "Bob";
+        const age = 28;
+        const thatObject = {name: name, age, color: "red"}; // if we have a variable 
+        // with the same name as that of the property to which we are assigning it
+        
+        //Destructuring
+        const obj = { a: 1, b: 2 };
+        const { a, b } = obj; // This creates two variables, a and b
+        const array = [1, 2, 3, 4, 5];
+        const [ zerothEle, firstEle ] = array; // zerothEle = 1   firstEle =2
+
+        // private variables and functions
+        function createUser (name) {
+            const discordName = "@" + name;
+            let reputation = 0;
+            const getReputation = () => reputation;
+            const giveReputation = () => reputation++;
+            return { name, discordName, getReputation, giveReputation };}
+        const josh = createUser("josh");
+        josh.giveReputation();
+        josh.giveReputation();
+        console.log({
+            discordName: josh.discordName,
+            reputation: josh.getReputation()
+        }); // logs { discordName: "@josh", reputation: 2 }
+
+        // prototypal inheritance with factories
+        function createPlayer (name, level) {
+            const { getReputation, giveReputation } = createUser(name);
+            const increaseLevel = () => level++;
+            return { name, getReputation, giveReputation, increaseLevel };
+        }
+        player1 = createPlayer("drake", 20);
+
+        function createPlayer (name, level) {
+            const user = createUser(name);
+            const increaseLevel = () => level++;
+            return Object.assign({}, user, { increaseLevel }); // we use the assign method
+        }
+        player2 = createPlayer("pietro", 10);
+
+        const target = { a: 1, b: 2 };
+        const source = { b: 4, c: 5 };
+        const source2 = { b: 10, c: 15, d: 16};
+        const returnedTarget = Object.assign(target, source, source2);
+        console.log(target); // Expected output: Object { a: 1, b: 10, c: 15, d: 16}
+        console.log(returnedTarget === target); // Expected output: true
+        // it can be used to clone an object
+        const copy = Object.assign({}, source);
+        console.log(copy) //Object { b: 4, c: 5}
+
+        // module pattern: wrap a factory funciton inside an IIFE
+        const calculator = (function () {
+            const add = (a, b) => a + b;
+            const sub = (a, b) => a - b;
+            const mul = (a, b) => a * b;
+            const div = (a, b) => a / b;
+            return { add, sub, mul, div };
+        })();
+        calculator.add(3,5); // 8
+        calculator.sub(6,2); // 4
+        calculator.mul(14,5534); // 77476
+
+
+    </script>
+</body>
+</html>

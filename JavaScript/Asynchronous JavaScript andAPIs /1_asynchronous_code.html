@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        // Asynchronous functions
+        var fs = require('fs') // require is a special function provided by node
+        var myNumber = undefined // we don't know what the number is yet since it is stored in a file
+        function addOne() {
+            fs.readFile('number.txt', function doneReading(err, fileContents) {
+                myNumber = parseInt(fileContents)
+                myNumber++
+            })
+        }
+        addOne()
+        console.log(myNumber) // logs out undefined -- this line gets run before readFile is done
+
+
+        // Callbacks
+        // A callback function is a function passed into another function as an argument, 
+        // this solves the asynchronous function problems
+        var fs = require('fs')
+        var myNumber = undefined
+        function addOne(callback) {
+        fs.readFile('number.txt', function doneReading(err, fileContents) {
+            myNumber = parseInt(fileContents)
+            myNumber++
+            callback()
+        })
+        }
+        function logMyNumber() {
+        console.log(myNumber)
+        }
+        addOne(logMyNumber)
+        // the number will be logged only AFTER readFile is completed
+
+
+        // Promises  https://www.youtube.com/watch?v=DHvZLI7Db8E
+        const myData = getData() // if this is refactored to return a Promise...
+        myData.then(function(data){ // .then() tells it to wait until the promise is resolved
+        const pieceOfData = data['whatever'] // and THEN run the function inside
+        })
+
+        let p = new Promise((resolve, reject) => {
+            let a = 1 + 1
+            if (a==2){
+                resolve('Success')
+            } else {
+                reject('Failed')
+            }
+        })
+        p.then((message) => { // then waits until the promise is finished is going to be called if the function resolves
+            console.log('This is in the then ' + message)
+        }).catch((message) => { // catch is called when function rejects
+            console.log('This is in the catch ' + message)
+        }).finally(()=>{
+            console.log('This is finally method, it is executed regardless')
+        })
+
+        // we can create multiple asumchronous promises, and they will run
+        // at the same time
+        const promise1 = new Promise((resolve, reject) => {
+            resolve('Promise 1 fullfilled')
+        })
+        const promise2 = new Promise((resolve, reject) => {
+            resolve('Promise 2 fullfilled')
+        })
+        const promise3 = new Promise((resolve, reject) => {
+            resolve('Promise 3 fullfilled')
+        })
+
+        Promise.all([ // runs when all promises are completed
+            promise1,
+            promise2,
+            promise3
+        ]).then((messages)=>{
+            console.log(messages)
+        })
+
+        Promise.race([// first promise to finish it runs
+            promise1,
+            promise2,
+            promise3
+        ]).then((firstmessage)=>{
+            console.log(firstmessage)
+        })    
+    </script>
+</body>
+</html>

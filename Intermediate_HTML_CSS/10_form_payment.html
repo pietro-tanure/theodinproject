@@ -293,9 +293,8 @@
         for (let i = 0; i < billingItems.length; i++) {
           billingItems[i].disabled = !billingItems[i].disabled;
 
-          if (
-            billingLabels[i].getAttribute("class") === "billing-label disable"
-          ) {
+          if (billingLabels[i].getAttribute("class") === "billing-label disable") 
+          {
             billingLabels[i].setAttribute("class", "billing-label");
           } else {
             billingLabels[i].setAttribute("class", "billing-label disable");

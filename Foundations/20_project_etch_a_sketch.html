@@ -44,7 +44,7 @@
 
         function changeColor(){ // choose random color for square and make it progressively darker
             if (this.style.backgroundColor){
-                let darkPercentage = parseFloat(this.style.getPropertyValue('--dark-percentage')) - 0.1;
+                let darkPercentage = parseFloat(this.style.getPropertyValue('--dark-percentage')) - 1/6;
                 this.style.setProperty('--dark-percentage', darkPercentage);
                 this.style.backgroundColor = pSBC(darkPercentage, this.style.getPropertyValue('--init-color'));
             } else {

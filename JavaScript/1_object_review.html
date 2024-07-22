@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        const myObject = {
+            property: 'Value!',
+            otherProperty: 77,
+            "obnoxious property": function() {
+                // do stuff!
+            }
+            };
+
+        // dot notation
+        myObject.property; // 'Value!'
+
+        // bracket notation
+        myObject["obnoxious property"]; // [Function]
+
+        //object constructor
+        function Player(name, marker) {
+            this.name = name;
+            this.marker = marker;
+            this.sayName = function() {
+                    console.log(this.name)
+            };
+        }
+        const player1 = new Player('steve', 'X');
+        const player2 = new Player('john', 'O');
+        console.log(player1.name); // 'steve'
+        player1.sayName();
+
+        function Book(title, author, pages, read){
+            this.name = name;
+            this.author = author;
+            this.pages = pages;
+            this.read = read;
+            this.info = function(){
+                return `${title} by ${author}, ${pages} pages, ${read ? 'already read' : 'not read yet'}`
+            }
+        }
+        const theHobbit = new Book('The Hobbit', 'JRR Tolkien', 295, false)
+        console.log(theHobbit.info())
+
+        // Every object has a prototype which is another class that the object inherits from
+        // so the object has the access to all its methods and properties
+        Object.getPrototypeOf(player1); //constructor: function Player
+        console.log("the prototype of the Hobbit is" + Object.getPrototypeOf(theHobbit)) //[object Object]
+        Object.getPrototypeOf(player1) === Object.getPrototypeOf(player2) //true
+        Object.getPrototypeOf(player1) === Player.prototype //true
+        Object.getPrototypeOf(Player.prototype) === Object.prototype; // true
+        // player1.valueOf(); // this function is defined on Object.prototype    Output: Object { name: "steve", marker: "X", sayName: sayName() }
+        player1.hasOwnProperty('valueOf'); //false
+        Object.prototype.hasOwnProperty('valueOf'); //true
+        Object.prototype.hasOwnProperty('hasOwnProperty'); // true
+        Object.getPrototypeOf(Object) //function
+        Object.getPrototypeOf(Player) //function
+        Object.getPrototypeOf(Object.prototype) //null    this has no prototype
+
+        Player.prototype.sayHello = function() {
+            // we define a method on the prototype and it is now available for the objects
+            console.log("Hello, I'm a player1!");
+        };
+        player1.sayHello(); // logs "Hello, I'm a player!"
+
+        // you can also set or mutate a prototype
+        function Person(name) {
+            this.name = name;
+        }
+        Person.prototype.sayName = function() {
+            console.log(`Hello, I'm ${this.name}!`);
+        };
+
+        function Gamer(name, marker) {
+            this.name = name;
+            this.marker = marker;
+        }
+        Gamer.prototype.getMarker = function() {
+            console.log(`My marker is ${this.marker}`);
+        };
+        Object.getPrototypeOf(Gamer.prototype); // returns Object.prototype
+        Object.setPrototypeOf(Gamer.prototype, Person.prototype); // Now make `Player` objects inherit from `Person`
+        Object.getPrototypeOf(Gamer.prototype) // returns Person.prototype
+        const gamer1 = new Gamer('steve', 'X');
+        const gamer2 = new Gamer('also steve', 'O');
+        gamer1.sayName(); // Hello, I'm steve!
+        gamer2.sayName(); // Hello, I'm also steve!
+        gamer1.getMarker(); // My marker is 'X'
+        gamer2.getMarker(); // My marker is 'O'
+
+        // Every variable has a prototype
+        let x = {};
+        typeof(x); //object
+        Object.getPrototypeOf(x); //Object
+        Object.prototype.isPrototypeOf(Array);
+        let int1 = 1;
+        typeof(int1); //number
+        Object.getPrototypeOf(int1); // Number
+        let string1 = "ala";
+        typeof(string1); //string
+        Object.getPrototypeOf(string1); // String
+        let y = [];
+        Object.getPrototypeOf(y); //Array
+        y.__proto__ === Array.prototype; // true
+        Array.prototype.isPrototypeOf(y);
+
+        // Initialize a constructor function for a new Hero
+        function Hero(name, level) {
+            this.name = name;
+            this.level = level;
+        }
+        Hero.prototype.greet = function () {
+            return `${this.name} says hello.`;
+        }
+        function Warrior(name, level, weapon) {
+            // Chain constructor with call
+            Hero.call(this, name, level); // We can use the call() method to copy over properties
+            // from one constructor into another constructor.
+
+            // Add a new property
+            this.weapon = weapon;
+        }
+        Warrior.prototype.attack = function () {
+            return `${this.name} attacks with the ${this.weapon}.`;
+        }
+        const warrior1 = new Warrior('Bjorn', 1, 'axe');
+        console.log(warrior1.attack());
+        // console.log(warrior1.greet()); //error, because the methods are not copied when you use call()
+        Object.setPrototypeOf(Warrior.prototype, Hero.prototype);
+        console.log(warrior1.greet()); //"Bjorn says hello."
+
+        // In the global context, the this references the global object, which is the
+        //  window object on the web browser or global object on Node.js.
+        console.log(this === window); // true
+    </script>
+</body>
+</html>

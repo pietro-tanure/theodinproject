@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        // // SOLID Principles
+        // Single responsability principle
+        class CaloriesTracker {
+            constructor(maxCalories){
+                this.maxCalories = maxCalories;
+                this.currentCalories = 0
+            }
+
+            trackCalories(calorieCount) {
+                this.currentCalories += calorieCount
+                if (this.currentCalories > this.maxCalories) {
+                    // logCaloriesSurplus()
+                    logMessage('Max calories exceeded')
+                }
+            }
+
+            // logCaloriesSurplus() { 
+            // // this is bad because the code now has 2 responsabilities, calculating 
+            // // calories and logging, and there are two reasons to change the code
+            // // so we put it outside the class
+            //     console.log('Max calories exceeded')
+            // }
+        }
+        function logMessage(message) { //now it is good
+            console.log(message)
+        }
+
+        // Open/close principle (open to extension and closed to modification)
+        function printQuiz(questions){
+            questions.forEach(question => {
+                console.log(question.description)
+                switch (question.type) {
+                    case 'boolean':
+                        console.log('1. True')
+                        console.log('2. False')
+                        break
+                    case 'multipleChoice':
+                        question.options.forEach((option, index) => {
+                            console.log(`${index +1} ${option}`)
+                        })
+                        break
+                    case 'text':
+                        console.log('Answer: ___________')
+                        break
+                    case 'range': //if we want to add a new question we need to modify the function
+                        console.log('Minimum: ________')
+                        console.log('Maximum: ________')
+                        break
+                }
+                console.log('')
+            })
+        }
+        const questions = [
+            {
+                type: 'boolean',
+                description: 'This video is useful'
+            },
+            {
+                type: 'multipleChoice',
+                description: 'What is your favorit language?',
+                options: ['CSS', 'HTML', 'JS', 'Python']
+            },
+            {
+                type: 'text',
+                description: 'Describe your favorite JS feature'
+            },
+            { //if we want to add a new question we need to modify the function
+                type: 'range',
+                description: 'What is the speed limit in your city?'
+            }
+        ]
+
+        // Liskov substitution principle (if S is a subtype of T, then objects 
+        // of type T may be replaced with object of type S)
+
+        // Interface segregation principle (object that implements interfaces MUST
+        // apply all its methods and properties)
+        // interface Entity {
+        //     attackDamage
+        //     health
+        //     name
+        //     move()
+        //     attack()
+        //     takeDamage(amount)
+        // }
+        // class Turret implements Entity {
+        //     // this doesnt implement move()
+        //     attack(){}
+        //     takeDamage(amount){}
+        // }
+        // WE CAN USE COMPOSITION TO SOLVE THIS
+
+        // Dependency Inversion principle (we use a wrapper to communicate between classes without having to change the code)
+        // class Store {
+        //     constructor(user){
+        //         this.paypal = new Paypal()
+        //         this.user = user
+        //         // this.stripe = new Stripe(user)  //this is bad because we need to change everything to use paypal
+        //     }
+        //     purchaseBike(quantity) {
+        //         this.paypal.makePayment(this.user, 200*quantity)
+        //         // this.stripe.makePayment(200 * quantity * 100)
+        //     }
+        //     pruchaseHelmet(quantity) {
+        //         this.paypal.makePayment(this.user, 15*quantity)
+        //         // this.stripe.makePayment(15 * quantity * 100)
+        //     }
+        // }   
+        // class Stripe {
+        //     constructor(user){
+        //         this.user = user
+        //     }
+        //     makePayment(amountInCents) {
+        //         console.log(`${this.user} mage payent of $${amountInCents/100} with Stripe`)
+        //     }
+        // }
+        // class Paypal {
+        //     makePayment(user, amountInDollars){
+        //         console.log(`${user} made payment of $${amountInDollars} with Paypal `)
+        //     }
+        // }
+        // const store = new Store('John')
+        // store.purchaseBike(2)
+        // store.pruchaseHelmet(2)
+
+        
+        class Store {
+            constructor(paymentProcessor){
+                this.paymentProcessor = paymentProcessor
+            }
+            purchaseBike(quantity) {
+                this.PaymentProcessor.pay(200 * quantity)
+            }
+            pruchaseHelmet(quantity) {
+                this.PaymentProcessor.pay(15 * quantity)
+            }
+        }   
+        class StripePaymentProcessor {
+            constructor(user) {
+                this.stripe = new Stripe(user)
+            }
+            pay(amountInDollars){
+                this.stripe.makePayment(amountInDollars * 100)
+            }
+        }
+        class Stripe {
+            constructor(user){
+                this.user = user
+            }
+            makePayment(amountInCents) {
+                console.log(`${this.user} mage payent of $${amountInCents/100} with Stripe`)
+            }
+        }
+        class PaypalPaymentProcessor {
+            constructor(user) {
+                this.user = user
+                this.paypal = new Paypal()
+            }
+            pay(amountInDollars){
+                this.paypal.makePayment(this.user, amountInDollars)
+            }
+        }
+        class Paypal {
+            makePayment(user, amountInDollars){
+                console.log(`${user} made a payment of $${amountInDollars} with Paypal`)
+            }
+        }
+
+        const store = new Store(new StripePaymentProcessor('John'))
+        store.purchaseBike(2)
+        store.pruchaseHelmet()
+
+
+    </script>
+</body>
+</html>
