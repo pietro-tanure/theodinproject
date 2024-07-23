@@ -1,31 +1,253 @@
 <!DOCTYPE html>
-<html lang="en-US">
+<html lang="en">
 
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width" />
-  <title>Favorite fruit start</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
   <style>
+    body {
+      font: 1em sans-serif;
+      width: 200px;
+      padding: 0;
+      margin: 0 auto;
+    }
+
+    p * {
+      display: block;
+    }
+
+    input[type="email"] {
+      appearance: none;
+      width: 100%;
+      border: 1px solid #333;
+      margin: 0;
+      font-family: inherit;
+      font-size: 90%;
+      box-sizing: border-box;
+    }
+
+    /* This is our style for the invalid fields */
     input:invalid {
-      border: 2px dashed red;
+      border-color: #900;
+      background-color: #fdd;
     }
 
-    input:invalid:required {
-      background-image: linear-gradient(to right, pink, lightgreen);
+    input:focus:invalid {
+      outline: none;
     }
 
-    input:valid {
-      border: 2px solid black;
+    /* This is the style of our error messages */
+    .error {
+      width: 100%;
+      padding: 0;
+      font-size: 80%;
+      color: white;
+      background-color: #900;
+      border-radius: 0 0 5px 5px;
+      box-sizing: border-box;
+    }
+
+    .error.active {
+      padding: 0.3em;
+    }
+
+
+
+    body {
+      font: 1em sans-serif;
+      width: 200px;
+      padding: 0;
+      margin: 0 auto;
+    }
+
+    form {
+      max-width: 200px;
+    }
+
+    p * {
+      display: block;
+    }
+
+    input#mail {
+      appearance: none;
+      width: 100%;
+      border: 1px solid #333;
+      margin: 0;
+      font-family: inherit;
+      font-size: 90%;
+      box-sizing: border-box;
+    }
+
+    /* This is our style for the invalid fields */
+    input.invalid {
+      border-color: #900;
+      background-color: #fdd;
+    }
+
+    input:focus:invalid {
+      outline: none;
+    }
+
+    /* This is the style of our error messages */
+    .error {
+      width: 100%;
+      padding: 0;
+      font-size: 80%;
+      color: white;
+      background-color: #900;
+      border-radius: 0 0 5px 5px;
+      box-sizing: border-box;
+    }
+
+    .error.active {
+      padding: 0.3em;
     }
   </style>
 </head>
 
 <body>
   <form>
-    <label for="choose">Would you prefer a banana or a cherry?</label>
-    <input id="choose" name="i_like" required />
+    <label for="mail1">
+      I would like you to provide me with an email address:
+    </label>
+    <input type="email1" id="mail1" name="mail" />
     <button>Submit</button>
   </form>
+  <script>
+    const email1 = document.getElementById("mail1");
+    email.addEventListener("input", (event) => {
+      if (email1.validity.typeMismatch) {
+        email1.setCustomValidity("I am expecting an email address!");
+      } else {
+        email1.setCustomValidity("");
+      }
+    });
+  </script>
+
+
+  <form novalidate>
+    <p>
+      <label for="mail">
+        <span>Please enter an email address of at least 8 char:</span>
+        <input type="email" id="mail" name="mail" required minlength="8" />
+        <span class="error" aria-live="polite"></span>
+      </label>
+    </p>
+    <button>Submit</button>
+  </form>
+  <script>
+    // There are many ways to pick a DOM node; here we get the form itself and the email
+    // input box, as well as the span element into which we will place the error message.
+    const form = document.querySelector("form");
+    const email = document.getElementById("mail");
+    const emailError = document.querySelector("#mail + span.error");
+
+    email.addEventListener("input", (event) => {
+      // Each time the user types something, we check if the
+      // form fields are valid.
+
+      if (email.validity.valid) {
+        // In case there is an error message visible, if the field
+        // is valid, we remove the error message.
+        emailError.textContent = ""; // Reset the content of the message
+        emailError.className = "error"; // Reset the visual state of the message
+      } else {
+        // If there is still an error, show the correct error
+        showError();
+      }
+    });
+
+    form.addEventListener("submit", (event) => {
+      // if the email field is valid, we let the form submit
+      if (!email.validity.valid) {
+        // If it isn't, we display an appropriate error message
+        showError();
+        // Then we prevent the form from being sent by canceling the event
+        event.preventDefault();
+      }
+    });
+
+    function showError() {
+      if (email.validity.valueMissing) {
+        // If the field is empty,
+        // display the following error message.
+        emailError.textContent = "You need to enter an email address.";
+      } else if (email.validity.typeMismatch) {
+        // If the field doesn't contain an email address,
+        // display the following error message.
+        emailError.textContent = "Entered value needs to be an email address.";
+      } else if (email.validity.tooShort) {
+        // If the data is too short,
+        // display the following error message.
+        emailError.textContent = `Email should be at least ${email.minLength} characters; you entered ${email.value.length}.`;
+      }
+
+      // Set the styling appropriately
+      emailError.className = "error active";
+    }
+  </script>
+
+
+  <!-- An example that doesn't use the constraint validation API -->
+  <form>
+    <p>
+      <label for="mail2">
+        <span>Please enter an email address:</span>
+        <input type="text" id="mail2" name="mail2" />
+        <span class="error" aria-live="polite"></span>
+      </label>
+    </p>
+    <button>Submit</button>
+  </form>
+  <script>
+    const form2 = document.querySelector("form");
+    const email2 = document.getElementById("mail2");
+    const error = email2.nextElementSibling;
+
+    // As per the HTML Specification
+    const emailRegExp =
+      /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
+
+    // Now we can rebuild our validation constraint
+    // Because we do not rely on CSS pseudo-class, we have to
+    // explicitly set the valid/invalid class on our email field
+    window.addEventListener("load", () => {
+      // Here, we test if the field is empty (remember, the field is not required)
+      // If it is not, we check if its content is a well-formed email address.
+      const isValid = email2.value.length === 0 || emailRegExp.test(email2.value);
+      email2.className = isValid ? "valid" : "invalid";
+    });
+
+    // This defines what happens when the user types in the field
+    email2.addEventListener("input", () => {
+      const isValid = email2.value.length === 0 || emailRegExp.test(email2.value);
+      if (isValid) {
+        email2.className = "valid";
+        error.textContent = "";
+        error.className = "error";
+      } else {
+        email2.className = "invalid";
+      }
+    });
+
+    // This defines what happens when the user tries to submit the data
+    form2.addEventListener("submit", (event) => {
+      event.preventDefault();
+
+      const isValid = email2.value.length === 0 || emailRegExp.test(email2.value);
+      if (!isValid) {
+        email2.className = "invalid";
+        error.textContent = "I expect an email, darling!";
+        error.className = "error active";
+      } else {
+        email2.className = "valid";
+        error.textContent = "";
+        error.className = "error";
+      }
+    });
+
+  </script>
 </body>
 
 </html>
