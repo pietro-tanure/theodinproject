@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <img src="#" alt="">
+  <script>
+    // https://www.youtube.com/watch?v=9YkUCxvaLEk
+    // The await keyword is used to get a value from a function where you would normally use .then()
+    const img = document.querySelector('img');
+
+    async function getCats1() {
+      fetch(`https://api.giphy.com/v1/gifs/translate?api_key=${API_KEY}&s=cats`, { mode: 'cors' })
+        .then(function (response) {
+          return response.json();
+        })
+        .then(function (response) {
+          img.src = response.data.images.original.url;
+        })
+    }
+
+    // Now that we have a function that is asynchronous, we can then start refactoring from using promises to using await:
+    async function getCats2() {
+      const response = await fetch(`https://api.giphy.com/v1/gifs/translate?api_key=${API_KEY}&s=cats`, { mode: 'cors' });
+      response.json().then(function (response) {
+        img.src = response.data.images.original.url;
+      });
+    }
+
+    // Since response is still the same object we have passed to the .then() block at the start, we still need to use the .json() 
+    // method, which in turn returns a promise. Because .json() returns a promise, we can use await to assign the response to a variable.
+    async function getCats3() {
+      const response = await fetch(`https://api.giphy.com/v1/gifs/translate?api_key=${API_KEY}&s=cats`, { mode: 'cors' });
+      const catData = await response.json();
+      img.src = catData.data.images.original.url;
+    }
+
+    getCats3();
+
+    // you can await multiple promises at once, saving time
+    const promise1 = axios.get('https://api.github.com/users/wesbos')
+    const promise2 = axios.get('https://api.github.com/users/stolinski')
+    const [pr1, pr2] = Promise.all([promise1, promise2]);
+
+
+    const server = {
+      people: [
+        {
+          name: "Odin",
+          age: 20,
+        },
+        {
+          name: "Thor",
+          age: 35,
+        },
+        {
+          name: "Freyja",
+          age: 29,
+        },
+      ],
+
+      getPeople() {
+        return new Promise((resolve, reject) => {
+          // Simulating a delayed network call to the server
+          setTimeout(() => {
+            resolve(this.people);
+          }, 2000);
+        });
+      },
+    };
+
+
+    // // it is valid to use an async function anywhere you can use a normal function
+    const yourAsyncFunction = async () => {
+      // do something asynchronously and return a promise
+      return result;
+    }
+    anArray.forEach(async item => {
+      // do something asynchronously for each item in 'anArray'
+      // one could also use .map here to return an array of promises to use with 'Promise.all()'
+    });
+    server.getPeople().then(async people => {
+      people.forEach(person => {
+        // do something asynchronously for each person
+      });
+    });
+
+    // await does the following: it tells JavaScript to wait for an asynchronous action to finish before
+    // continuing the function. It’s like a ‘pause until done’ keyword
+
+
+    // Promises have the .catch() method for handling rejected promises,
+    // and since async functions just return a promise, 
+    // you can call the function, and append a .catch() method to the end
+    asyncFunctionCall().catch(err => {
+      console.error(err)
+    });
+
+    // to handle erros inside the async function
+    async function getPersonsInfo(name) {
+      try {
+        const people = await server.getPeople();
+        const person = people.find(person => { return person.name === name });
+        return person;
+      } catch (error) {
+        // Handle the error any way you'd like
+      }
+    }
+
+    // make a function to handle that error
+    function handleError(fn) {
+      return function (...params) {
+        return fn(...params).catch(function (err) {
+          // do something with the error
+          console.error(`Oops!`, err);
+        });
+      }
+    }
+    // or in implicit form:
+    const handleError2 = fn => (...params) => fn(...params).catch(console.error);
+    const safeyolo = handleError2(yolo);
+    safeyolo();
+    // you wrap your unsafe function with the handlerror one, creating a function that
+    // does the samething but it safe
+
+
+  </script>
+
+</body>
+
+</html>
