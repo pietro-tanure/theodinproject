@@ -1,144 +1,125 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
 </head>
 <style>
-    input{
-        border: 2px solid #065786;
-        margin-bottom: 15px;
-        padding: 5px;
-        border-radius: 5px;
-    }
+  input {
+    border: 2px solid #065786;
+    margin-bottom: 15px;
+    padding: 5px;
+    border-radius: 5px;
+  }
 
-    input:invalid{
-        border-color: red;
-    }
+  input:invalid {
+    border-color: red;
+  }
 
-    input:invalid:required{
-        background-image: linear-gradient(to right, pink, lightgreen);
-    }
+  input:invalid:required {
+    background-image: linear-gradient(to right, pink, lightgreen);
+  }
 
-    input:valid{
-        border-color: green;
-    }
+  input:valid {
+    border-color: green;
+  }
 
-    input[type="text"],
-    textarea,
-    fieldset {
-        width: 100%;
-        border: 1px solid #333;
-    }
+  input[type="text"],
+  textarea,
+  fieldset {
+    width: 100%;
+    border: 1px solid #333;
+  }
 
-    input::placeholder {
+  input::placeholder {
     color: rgb(0, 149, 255);
-    }
-
+  }
 </style>
-<body>
-    <form action="#" method="get">
-        <div>
-            <label for="user_email">Email:</label>
-            <input type="email" id="user_email" name="userEmail" list="l0" required>
-            <datalist id="l0">
-                <option>pietro_onnis@hotmail.com</option>
-                <option>Cherry</option>
-            </datalist>
-        </div>
-        <div><label for="user_password">Password:</label>
-            <input type="text" id="user_password" name="userPassword">
-        </div>
-        <button type="submit">Login</button>
-    </form>
-    <form action="#" method="get">
-        <div>
-            <label for="quantity"></label>
-            <input type="number" id="quantity" name="quantityInput" min="1" max="5" value="0">
-        </div>
-        <div>
-            <label for="zip_code"></label>
-            <input type="text" id="zip_code" name="zipCode"
-                pattern="(\d{5}([\-]\d{4})?)" placeholder="65251" 
-                title="Entra um trem valida aí pfvr, example: 65251" required>
-        </div>
-        <div>
-            <textarea placeholder="What's happening?" minlength="3" maxlength="20"></textarea>
-        </div>
-        <div>
-            <label for="choose">Banana or cherry?</label>
-            <input type="text" id="choose" name="chooseBanChe" 
-            pattern="[Bb]anana|[Cc]herry" required></div>
-        <button type="submit">Send</button>
-    </form>
 
-    <form>
-        <fieldset>
-          <legend>
-            Do you have a driver's license?<span aria-label="required">*</span>
-          </legend>
-          <!-- While only one radio button in a same-named group can be selected at a time,
+<body>
+  <form action="#" method="get">
+    <div>
+      <label for="user_email">Email:</label>
+      <input type="email" id="user_email" name="userEmail" list="l0" required>
+      <datalist id="l0">
+        <option>pietro_onnis@hotmail.com</option>
+        <option>Cherry</option>
+      </datalist>
+    </div>
+    <div><label for="user_password">Password:</label>
+      <input type="text" id="user_password" name="userPassword">
+    </div>
+    <button type="submit">Login</button>
+  </form>
+  <form action="#" method="get">
+    <div>
+      <label for="quantity"></label>
+      <input type="number" id="quantity" name="quantityInput" min="1" max="5" value="0">
+    </div>
+    <div>
+      <label for="zip_code"></label>
+      <input type="text" id="zip_code" name="zipCode" pattern="(\d{5}([\-]\d{4})?)" placeholder="65251"
+        title="Entra um trem valida aí pfvr, example: 65251" required>
+    </div>
+    <div>
+      <textarea placeholder="What's happening?" minlength="3" maxlength="20"></textarea>
+    </div>
+    <div>
+      <label for="choose">Banana or cherry?</label>
+      <input type="text" id="choose" name="chooseBanChe" pattern="[Bb]anana|[Cc]herry" required>
+    </div>
+    <button type="submit">Send</button>
+  </form>
+
+  <form>
+    <fieldset>
+      <legend>
+        Do you have a driver's license?<span aria-label="required">*</span>
+      </legend>
+      <!-- While only one radio button in a same-named group can be selected at a time,
                and therefore only one radio button in a same-named group having the "required"
                attribute suffices in making a selection a requirement -->
-          <input type="radio" required name="driver" id="r1" value="yes" /><label
-            for="r1"
-            >Yes</label
-          >
-          <input type="radio" required name="driver" id="r2" value="no" /><label
-            for="r2"
-            >No</label
-          >
-        </fieldset>
-        <p>
-          <label for="n1">How old are you?</label>
-          <!-- The pattern attribute can act as a fallback for browsers which
+      <input type="radio" required name="driver" id="r1" value="yes" /><label for="r1">Yes</label>
+      <input type="radio" required name="driver" id="r2" value="no" /><label for="r2">No</label>
+    </fieldset>
+    <p>
+      <label for="n1">How old are you?</label>
+      <!-- The pattern attribute can act as a fallback for browsers which
                don't implement the number input type but support the pattern attribute.
                Please note that browsers that support the pattern attribute will make it
                fail silently when used with a number field.
                Its usage here acts only as a fallback -->
-          <input
-            type="number"
-            min="12"
-            max="120"
-            step="1"
-            id="n1"
-            name="age"
-            pattern="\d+" />
-        </p>
-        <p>
-          <label for="t1"
-            >What's your favorite fruit?<span aria-label="required">*</span></label
-          >
-          <input
-            type="text"
-            id="t1"
-            name="fruit"
-            list="l1"
-            required
-            pattern="[Bb]anana|[Cc]herry|[Aa]pple|[Ss]trawberry|[Ll]emon|[Oo]range" />
-          <datalist id="l1">
-            <option>Banana</option>
-            <option>Cherry</option>
-            <option>Apple</option>
-            <option>Strawberry</option>
-            <option>Lemon</option>
-            <option>Orange</option>
-          </datalist>
-        </p>
-        <p>
-          <label for="t2">What's your email address?</label>
-          <input type="email" id="t2" name="email" />
-        </p>
-        <p>
-          <label for="t3">Leave a short message</label>
-          <textarea id="t3" name="msg" maxlength="140" rows="5"></textarea>
-        </p>
-        <p>
-          <button>Submit</button>
-        </p>
-    </form>
-      
-    
+      <input type="number" min="12" max="120" step="1" id="n1" name="age" pattern="\d+" />
+    </p>
+    <p>
+      <label for="t1">What's your favorite fruit?<span aria-label="required">*</span></label>
+      <input type="text" id="t1" name="fruit" list="l1" required
+        pattern="[Bb]anana|[Cc]herry|[Aa]pple|[Ss]trawberry|[Ll]emon|[Oo]range" />
+      <datalist id="l1">
+        <option>Banana</option>
+        <option>Cherry</option>
+        <option>Apple</option>
+        <option>Strawberry</option>
+        <option>Lemon</option>
+        <option>Orange</option>
+      </datalist>
+    </p>
+    <p>
+      <label for="t2">What's your email address?</label>
+      <input type="email" id="t2" name="email" />
+    </p>
+    <p>
+      <label for="t3">Leave a short message</label>
+      <textarea id="t3" name="msg" maxlength="140" rows="5"></textarea>
+    </p>
+    <p>
+      <button>Submit</button>
+    </p>
+  </form>
+
+
 </body>
+
 </html>

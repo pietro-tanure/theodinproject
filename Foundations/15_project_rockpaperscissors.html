@@ -1,80 +1,99 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Document</title>
 </head>
+
 <body>
-    <script>
-        function getPlayerChoice(){
-            let inValid;
-            let playerPrompt ;
+  <script>
+    function getPlayerChoice() {
+      let inValid;
+      let playerPrompt;
 
-            do {
-                playerPrompt = prompt("Write one option: \n rock\n paper\n scissors", "rock").toLowerCase();
-                if ( playerPrompt != "rock" 
-                  && playerPrompt != "paper"
-                  && playerPrompt != "scissors"){
-                    console.log("Choose valid option");
-                    inValid = true;
-                } else {
-                    inValid = false;
-                }
-            } while(inValid);
-
-            return playerPrompt === "rock" ? 0 :
-                   playerPrompt === "paper" ? 1 :
-                   playerPrompt === "scissors";
+      do {
+        playerPrompt = prompt(
+          "Write one option: \n rock\n paper\n scissors",
+          "rock"
+        ).toLowerCase();
+        if (
+          playerPrompt != "rock" &&
+          playerPrompt != "paper" &&
+          playerPrompt != "scissors"
+        ) {
+          console.log("Choose valid option");
+          inValid = true;
+        } else {
+          inValid = false;
         }
+      } while (inValid);
 
-        function getPcChoice(){
-            let pcChoice = Math.floor(Math.random()*3);
+      return playerPrompt === "rock"
+        ? 0
+        : playerPrompt === "paper"
+          ? 1
+          : playerPrompt === "scissors";
+    }
 
-            switch (pcChoice){
-                case 0: console.log("PC chose rock"); break;
-                case 1: console.log("PC chose paper"); break;
-                case 2: console.log("PC chose scissors"); break;
-            }
+    function getPcChoice() {
+      let pcChoice = Math.floor(Math.random() * 3);
 
-            return pcChoice
-        }
+      switch (pcChoice) {
+        case 0:
+          console.log("PC chose rock");
+          break;
+        case 1:
+          console.log("PC chose paper");
+          break;
+        case 2:
+          console.log("PC chose scissors");
+          break;
+      }
 
-        function playRound(){
-            playerChoice = getPlayerChoice();
+      return pcChoice;
+    }
 
-            pcChoice = getPcChoice();
-            
-            //decide winner
-            if (playerChoice == pcChoice){
-            } else if (playerChoice - pcChoice == 1 || playerChoice - pcChoice == -2){
-                playerScore++;
-            } else {
-                pcScore++;
-            }
+    function playRound() {
+      playerChoice = getPlayerChoice();
 
-            console.log(`Player ${playerScore} vs ${pcScore} PC`);
-        }
+      pcChoice = getPcChoice();
 
-        function playGame(numRounds=5){
+      //decide winner
+      if (playerChoice == pcChoice) {
+      } else if (
+        playerChoice - pcChoice == 1 ||
+        playerChoice - pcChoice == -2
+      ) {
+        playerScore++;
+      } else {
+        pcScore++;
+      }
 
-            for(let i=0; i<numRounds; i++){
-                playRound()}
+      console.log(`Player ${playerScore} vs ${pcScore} PC`);
+    }
 
-            if (playerScore > pcScore){
-                console.log("Congratulations! YOU WON");
-            } else if (playerScore < pcScore){
-                console.log("You lost the game");
-            } else {
-                console.log("It's a draw!");
-            }
+    function playGame(numRounds = 5) {
+      for (let i = 0; i < numRounds; i++) {
+        playRound();
+      }
 
-            playerScore = 0, pcScore = 0;
-        }
+      if (playerScore > pcScore) {
+        console.log("Congratulations! YOU WON");
+      } else if (playerScore < pcScore) {
+        console.log("You lost the game");
+      } else {
+        console.log("It's a draw!");
+      }
 
-        let playerScore = 0, pcScore = 0;
-        playGame(5);
+      (playerScore = 0), (pcScore = 0);
+    }
 
-    </script>
+    let playerScore = 0,
+      pcScore = 0;
+    playGame(5);
+  </script>
 </body>
+
 </html>

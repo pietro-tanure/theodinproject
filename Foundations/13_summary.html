@@ -1,22 +1,26 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    <script>
-        add7 = num => num+7;
-        multiply = (num1, num2) => num1*num2;
-        function capitalize(str){
-            return str.charAt(0).toUpperCase() + str.slice(1);}
-        lastLetter = str => str.at(-1);
 
-        alert(add7(7));
-        alert(multiply(10,4.2));
-        alert(capitalize('tabaco'));
-        alert(lastLetter('ultima'));
-    </script>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Document</title>
+</head>
+
+<body>
+  <script>
+    add7 = (num) => num + 7;
+    multiply = (num1, num2) => num1 * num2;
+    function capitalize(str) {
+      return str.charAt(0).toUpperCase() + str.slice(1);
+    }
+    lastLetter = (str) => str.at(-1);
+
+    alert(add7(7));
+    alert(multiply(10, 4.2));
+    alert(capitalize("tabaco"));
+    alert(lastLetter("ultima"));
+  </script>
 </body>
+
 </html>

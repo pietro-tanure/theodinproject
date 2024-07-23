@@ -1,195 +1,214 @@
-mpu<!DOCTYPE html>
+mpu
+<!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Document</title>
 </head>
+
 <body>
-    <script>
-        // // GETTERS AND SETTERS
-        let user = {
-            name: "John",
-            surname: "Smith",
-            get fullName() { return `${this.name} ${this.surname}`;},
-            set fullName(value) { [this.name, this.surname] = value.split(" "); } 
-        };
-        user.fullName = "Alice Cooper";
+  <script>
+    // // GETTERS AND SETTERS
+    let user = {
+      name: "John",
+      surname: "Smith",
+      get fullName() {
+        return `${this.name} ${this.surname}`
+      },
+      set fullName(value) {
+        ;[this.name, this.surname] = value.split(" ")
+      },
+    }
+    user.fullName = "Alice Cooper"
 
-        // we can define properties after the object is created
-        Object.defineProperty(user, 'reverseName', {
-            get() {return `${this.surname} ${this.name}`;},
-            set(value) {[this.surname, this.name] = value.split(" "); }
-        });
-        console.log(user.reverseName)
+    // we can define properties after the object is created
+    Object.defineProperty(user, "reverseName", {
+      get() {
+        return `${this.surname} ${this.name}`
+      },
+      set(value) {
+        ;[this.surname, this.name] = value.split(" ")
+      },
+    })
+    console.log(user.reverseName)
 
-        // you can disguise setters and getters as real properties
-        let user2 = {
-            get name() { 
-                return this._name;},
-            set name(value) {
-                if (value.length < 4) {
-                    console.log("Name is too short, need at least 4 characters");
-                    return;
-                }
-                this._name = value;}
-            };
-        user2.name = "Pete";
-        console.log(user2.name); // Pete
-        user2.name = "Pe"; // Name is too short...
-
-        // by adding a new getter we make the code compatible
-        function User(name, birthday) {
-            this.name = name;
-            this.birthday = birthday;
-            // age is calculated from the current date and birthday
-            Object.defineProperty(this, "age", {
-                get() {
-                    let todayYear = new Date().getFullYear();
-                    return todayYear - this.birthday.getFullYear();
-                }
-            });
+    // you can disguise setters and getters as real properties
+    let user2 = {
+      get name() {
+        return this._name
+      },
+      set name(value) {
+        if (value.length < 4) {
+          console.log("Name is too short, need at least 4 characters")
+          return
         }
-        let john = new User("John", new Date(1992, 6, 1));
-        console.log( john.birthday ); // birthday is available
-        console.log( john.age );      // ...as well as the age
+        this._name = value
+      },
+    }
+    user2.name = "Pete"
+    console.log(user2.name) // Pete
+    user2.name = "Pe" // Name is too short...
 
+    // by adding a new getter we make the code compatible
+    function User(name, birthday) {
+      this.name = name
+      this.birthday = birthday
+      // age is calculated from the current date and birthday
+      Object.defineProperty(this, "age", {
+        get() {
+          let todayYear = new Date().getFullYear()
+          return todayYear - this.birthday.getFullYear()
+        },
+      })
+    }
+    let john = new User("John", new Date(1992, 6, 1))
+    console.log(john.birthday) // birthday is available
+    console.log(john.age) // ...as well as the age
 
-        // // CLASSES
-        class User3 {
-            constructor(name) { this.name = name;} // constructor method is called during creation
-            sayHi() { console.log(this.name);}
+    // // CLASSES
+    class User3 {
+      constructor(name) {
+        this.name = name
+      } // constructor method is called during creation
+      sayHi() {
+        console.log(this.name)
+      }
+    }
+    let user3 = new User3("John")
+    user3.sayHi()
+
+    // what is the difference of classes and functions?
+    // Class methods are non-enumerable. A class definition sets enumerable flag to false for all methods in the "prototype".
+    // That’s good, because if we for..in over an object, we usually don’t want its class methods.
+
+    // "Named Class Expression"
+    // (no such term in the spec, but that's similar to Named Function Expression)
+    let User4 = class MyClass {
+      sayHi() {
+        alert(MyClass) // MyClass name is visible only inside the class
+      }
+    }
+    new User4().sayHi() // works, shows MyClass definition
+    // alert(MyClass); // error, MyClass name isn't visible outside of the class
+
+    // can make a factory of classes
+    function makeClass(phrase) {
+      return class {
+        sayHi() {
+          console.log(phrase)
         }
-        let user3 = new User3("John");
-        user3.sayHi();
+      }
+    }
+    // Create a new class "on-demand"
+    let User5 = makeClass("Hello")
+    let User6 = makeClass("Ola")
+    new User6().sayHi() // Hello
 
-        // what is the difference of classes and functions?
-        // Class methods are non-enumerable. A class definition sets enumerable flag to false for all methods in the "prototype".
-        // That’s good, because if we for..in over an object, we usually don’t want its class methods.
-
-        // "Named Class Expression"
-        // (no such term in the spec, but that's similar to Named Function Expression)
-        let User4 = class MyClass {
-            sayHi() {
-                alert(MyClass); // MyClass name is visible only inside the class
-            }
-        };
-        new User4().sayHi(); // works, shows MyClass definition
-        // alert(MyClass); // error, MyClass name isn't visible outside of the class
-
-        // can make a factory of classes
-        function makeClass(phrase) {
-            return class {
-                sayHi() { console.log(phrase); }
-            };
+    //Classes can have getters, setters
+    class User7 {
+      age = "17"
+      constructor(name) {
+        this._name = name
+      }
+      get name() {
+        return this._name + "opa"
+      }
+      set name(value) {
+        if (value.length < 4) {
+          console.log("Name is too short.")
+          return
         }
-        // Create a new class "on-demand"
-        let User5 = makeClass("Hello");
-        let User6 = makeClass("Ola");
-        new User6().sayHi(); // Hello
+        this._name = value
+      }
+      ["say" + "Hi"]() {
+        // computed names of methods
+        console.log("Hellokk")
+      }
+    }
+    user7 = new User7("peita")
+    console.log(user7.name)
+    console.log(user7.age)
+    console.log(User7.prototype.age) // undefined
+    user7.sayHi()
 
-        //Classes can have getters, setters
-        class User7 {
-            age = "17";
-            constructor(name) { this._name = name;}
-            get name() { return this._name + "opa";}
-            set name(value) {
-                if (value.length < 4) {
-                    console.log("Name is too short.");
-                    return;
-                }
-                this._name = value;
-            }
-            ['say' + 'Hi']() { // computed names of methods
-                console.log("Hellokk");
-            }
-        }
-        user7 = new User7('peita');
-        console.log(user7.name);
-        console.log(user7.age);
-        console.log(User7.prototype.age); // undefined
-        user7.sayHi();
+    class User8 {
+      name = prompt("Name, please?", "John")
+    }
+    let user8 = new User8()
+    alert(user8.name) // John
 
+    // summary
+    // class MyClass {
+    //     prop = value; // property
 
-        class User8 {
-            name = prompt("Name, please?", "John");
-        }
-        let user8 = new User8();
-        alert(user8.name); // John
+    //     constructor(...) { // constructor
+    //         // ...
+    //     }
 
-        // summary
-        // class MyClass {
-        //     prop = value; // property
+    //     method(...) {} // method
 
-        //     constructor(...) { // constructor
-        //         // ...
-        //     }
+    //     get something(...) {} // getter method
+    //     set something(...) {} // setter method
 
-        //     method(...) {} // method
+    //     [Symbol.iterator]() {} // method with computed name (symbol here)
+    //     // ...
+    // }
 
-        //     get something(...) {} // getter method
-        //     set something(...) {} // setter method
+    // // STATIC METHODS AND PROPERTIES
+    class ClassWithStaticMethod {
+      static staticProperty = "static property"
+      static staticMethod() {
+        return "static method has been called."
+      }
+      static {
+        console.log("Clasxxs static initialization block called")
+      }
+    }
+    console.log(ClassWithStaticMethod.staticProperty) // Expected output: "someValue"
+    console.log(ClassWithStaticMethod.staticMethod()) // Expected output: "static method has been called."
+    classInstance = new ClassWithStaticMethod()
+    // console.log(classInstance.staticMethod()); //error
+    // console.log(classInstance.staticProperty); //error
 
-        //     [Symbol.iterator]() {} // method with computed name (symbol here)
-        //     // ...
-        // }
+    class ClassWithStaticField {
+      static baseStaticField = "base static field"
+      static anotherBaseStaticField = this.baseStaticField
+      static baseStaticMethod() {
+        return `base static method output, ${this.anotherBaseStaticField}`
+      }
+    }
+    class SubClassWithStaticField extends ClassWithStaticField {
+      static subStaticField = super.baseStaticMethod()
+    }
+    console.log(ClassWithStaticField.anotherBaseStaticField) // "base static field"
+    console.log(SubClassWithStaticField.subStaticField) // "base static method output"
 
+    // // COMPOSITION: "what my objects do?"
+    const barker = (state) => ({
+      bark: () => console.log("Woof, I am " + state.name),
+    })
+    barker({ name: "karo" }).bark() //woof, I am karo
 
-        // // STATIC METHODS AND PROPERTIES
-        class ClassWithStaticMethod {
-            static staticProperty = 'static property';
-            static staticMethod() {
-                return 'static method has been called.';
-            }
-            static {
-                console.log('Clasxxs static initialization block called');
-            }
-        }
-        console.log(ClassWithStaticMethod.staticProperty); // Expected output: "someValue"
-        console.log(ClassWithStaticMethod.staticMethod()); // Expected output: "static method has been called."
-        classInstance = new ClassWithStaticMethod();
-        // console.log(classInstance.staticMethod()); //error
-        // console.log(classInstance.staticProperty); //error
+    const driver = (state) => ({
+      drive: () => (state.position = state.position + state.speed),
+    })
 
-        class ClassWithStaticField {
-            static baseStaticField = "base static field";
-            static anotherBaseStaticField = this.baseStaticField;
-            static baseStaticMethod() {
-                return `base static method output, ${this.anotherBaseStaticField}`;
-            }
-        }
-        class SubClassWithStaticField extends ClassWithStaticField {
-            static subStaticField = super.baseStaticMethod();
-        }
-        console.log(ClassWithStaticField.anotherBaseStaticField); // "base static field"
-        console.log(SubClassWithStaticField.subStaticField); // "base static method output"
+    const killer = (state) => ({
+      kill: () => console.log(`I ${state.name}, kill you`),
+    })
 
+    const murderRobotDog = (name) => {
+      let state = { name, speed: 100, position: 0 }
+      return Object.assign({}, barker(state), driver(state), killer(state))
+    }
 
-        // // COMPOSITION: "what my objects do?"
-        const barker = (state) => ({
-            bark: () => console.log('Woof, I am ' + state.name)
-        })
-        barker({name: 'karo'}).bark(); //woof, I am karo
-
-        const driver = (state) => ({
-            drive: () => state.position = state.position + state.speed
-        })
-
-        const killer = (state) => ({
-            kill: () => console.log(`I ${state.name}, kill you`)
-        })
-
-        const murderRobotDog = (name) => {
-            let state = {name, speed:100, position:0}
-            return Object.assign( {}, barker(state), driver(state), killer(state))
-        }
-
-        spike = murderRobotDog('spike')
-        spike.kill() 
-        spike.bark()
-        spike.drive();
-    
-    </script>
+    spike = murderRobotDog("spike")
+    spike.kill()
+    spike.bark()
+    spike.drive()
+  </script>
 </body>
 
 </html>

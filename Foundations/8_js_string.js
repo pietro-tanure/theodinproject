@@ -21,9 +21,8 @@ const song = "Imagine";
 const score = 9;
 const highestScore = 10;
 const number = 13
-const output = `I've listened to the song '${song}' `+ number +` times. I gave it a score of ${
-    (score / highestScore) * 100
-}%.`;
+const output = `I've listened to the song '${song}' ` + number + ` times. I gave it a score of ${(score / highestScore) * 100
+  }%.`;
 console.log(output); // "I like the song Imagine. I gave it a score of 90%."
 
 // index string
@@ -32,7 +31,7 @@ console.log(output.at(-2));
 
 // substring
 console.log(output.slice(7)); //7th char onwards
-console.log(output.slice(3,10)); //between 3 and 10
+console.log(output.slice(3, 10)); //between 3 and 10
 console.log(output.slice(-10)); //counts from -10 onwards
 let part = str.substr(7, 6);  //7th to 13th char
 
@@ -59,9 +58,9 @@ let text12 = text11.trimEnd(); // remove spaces from end of string
 //padding
 let number2 = 5;
 let text = number2.toString();
-let padded = text.padStart(4,"0"); //0005
-let padded2 = text.padStart(x,"0"); //xxx5
-let padded3 = text.padEnd(x,"0"); //5xxx
+let padded = text.padStart(4, "0"); //0005
+let padded2 = text.padStart(x, "0"); //xxx5
+let padded3 = text.padEnd(x, "0"); //5xxx
 
 //repeat
 let result = padded2.repeat(2); //xxx5xxx5

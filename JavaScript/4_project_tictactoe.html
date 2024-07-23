@@ -1,178 +1,215 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Document</title>
 </head>
 <style>
-    body {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-    }
+  body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
 
-    .board {
-        display: grid;
-        grid-template-rows: repeat(3, 100px);
-        grid-template-columns: repeat(3, 100px);
-        margin: 20px;
-        margin-top: 0px;
-    }
+  .board {
+    display: grid;
+    grid-template-rows: repeat(3, 100px);
+    grid-template-columns: repeat(3, 100px);
+    margin: 20px;
+    margin-top: 0px;
+  }
 
-    .square {
-        display: flex;
-        border: 1px solid brown;
-        justify-content: center; /* Centers horizontally */
-        align-items: center;    /* Centers vertically */
-        font-size: 70px;
-    }
+  .square {
+    display: flex;
+    border: 1px solid brown;
+    justify-content: center;
+    /* Centers horizontally */
+    align-items: center;
+    /* Centers vertically */
+    font-size: 70px;
+  }
 
-    .square:hover {
-        color: rgba(0, 0, 0, 0.5);
-    }
+  .square:hover {
+    color: rgba(0, 0, 0, 0.5);
+  }
 
-    .h1 {
-        font-size: 3rem;
-    }
+  .h1 {
+    font-size: 3rem;
+  }
 
-    input {
-        width: 90px;
-    }
+  input {
+    width: 90px;
+  }
 
-    .space {
-        width: 3rem;
-        display: inline-block;
-    }
+  .space {
+    width: 3rem;
+    display: inline-block;
+  }
 
-    form {
-        margin: 10px;
-        /* display: flex; */
-    }
+  form {
+    margin: 10px;
+    /* display: flex; */
+  }
 
-    .div-start {
-        display: flex;
-        justify-content: center; 
-        margin-top: 20px;       
-    }
+  .div-start {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+  }
 </style>
+
 <body>
-    <form action="" id="getinfo">
-        <label for="name1">Player 1 name:</label>
-        <input type="text" id="name1" placeholder="Player 1">
-        <span class="space"></span>
-        <label for="name2">Player 2 name:</label>
-        <input type="text" id="name2" placeholder="Player 2">
-        <div class="div-start">
-            <button class="start" type="submit">Start game</button>
-        </div>
-    </form>
-    <grid class="board">
-        <div class="square" id="0"></div>
-        <div class="square" id="1"></div>
-        <div class="square" id="2"></div>
-        <div class="square" id="3"></div>
-        <div class="square" id="4"></div>
-        <div class="square" id="5"></div>
-        <div class="square" id="6"></div>
-        <div class="square" id="7"></div>
-        <div class="square" id="8"></div>
-    </grid>
-    <span class="h1"></span>
-    <script>
-        const squares = document.querySelectorAll('.square');
-        const submitStart = document.querySelector('#getinfo');
-        const message = document.querySelector(".h1");
-        let player1, player2, boardG, game;
+  <form action="" id="getinfo">
+    <label for="name1">Player 1 name:</label>
+    <input type="text" id="name1" placeholder="Player 1" />
+    <span class="space"></span>
+    <label for="name2">Player 2 name:</label>
+    <input type="text" id="name2" placeholder="Player 2" />
+    <div class="div-start">
+      <button class="start" type="submit">Start game</button>
+    </div>
+  </form>
+  <grid class="board">
+    <div class="square" id="0"></div>
+    <div class="square" id="1"></div>
+    <div class="square" id="2"></div>
+    <div class="square" id="3"></div>
+    <div class="square" id="4"></div>
+    <div class="square" id="5"></div>
+    <div class="square" id="6"></div>
+    <div class="square" id="7"></div>
+    <div class="square" id="8"></div>
+  </grid>
+  <span class="h1"></span>
+  <script>
+    const squares = document.querySelectorAll(".square");
+    const submitStart = document.querySelector("#getinfo");
+    const message = document.querySelector(".h1");
+    let player1, player2, boardG, game;
 
-        const cleanBoard = () => {
-            squares.forEach(square => {square.textContent = "";})
-            message.textContent = "";}
+    const cleanBoard = () => {
+      squares.forEach((square) => {
+        square.textContent = "";
+      });
+      message.textContent = "";
+    };
 
-        submitStart.addEventListener('submit', function(event) {
-            event.preventDefault(); // Prevent the form from submitting the traditional way
-            
-            player1 = createPlayer(document.getElementById('name1').value, 'X');
-            player2 = createPlayer(document.getElementById('name2').value, 'O');
-            boardG = createBoard();
-            game = createGame(player1, player2, boardG);
-            cleanBoard();
-        })
+    submitStart.addEventListener("submit", function (event) {
+      event.preventDefault(); // Prevent the form from submitting the traditional way
 
-        squares.forEach(square => {
-            square.addEventListener('mouseover', () => {
-                if (!square.classList.contains('clicked')){
-                    square.textContent = (game.getTurn() == 1) ? "\u00D7" : "\u25CB";
-                }});
-            square.addEventListener('mouseout', () => {
-                if (!square.classList.contains('clicked')){
-                    square.textContent = ""; 
-                }});
+      player1 = createPlayer(document.getElementById("name1").value, "X");
+      player2 = createPlayer(document.getElementById("name2").value, "O");
+      boardG = createBoard();
+      game = createGame(player1, player2, boardG);
+      cleanBoard();
+    });
 
-            square.addEventListener("click", () => {
-                square.textContent = (game.getTurn() == 1) ? "\u00D7" : "\u25CB";
-                square.classList.add('clicked');
-                game.makeMove(square.id);
-            })
-        });
+    squares.forEach((square) => {
+      square.addEventListener("mouseover", () => {
+        if (!square.classList.contains("clicked")) {
+          square.textContent = game.getTurn() == 1 ? "\u00D7" : "\u25CB";
+        }
+      });
+      square.addEventListener("mouseout", () => {
+        if (!square.classList.contains("clicked")) {
+          square.textContent = "";
+        }
+      });
 
-        function createPlayer(name, marker) {
-            const getName = () => name;
-            const getMarker = () => marker;
-            return {getName, getMarker};
+      square.addEventListener("click", () => {
+        square.textContent = game.getTurn() == 1 ? "\u00D7" : "\u25CB";
+        square.classList.add("clicked");
+        game.makeMove(square.id);
+      });
+    });
+
+    function createPlayer(name, marker) {
+      const getName = () => name;
+      const getMarker = () => marker;
+      return { getName, getMarker };
+    }
+
+    function createBoard() {
+      let board = [
+        [, , ,],
+        [, , ,],
+        [, , ,],
+      ];
+      const getBoard = () => board;
+      const play = (player, square) => {
+        board[square[0]][square[1]] = player.getMarker();
+      };
+      return { play, getBoard };
+    }
+
+    function createGame(player1, player2, boardG) {
+      let playerTurn = 1;
+      const getTurn = () => {
+        return playerTurn;
+      };
+      const makeMove = (square) => {
+        square = [Math.floor(square / 3), square % 3];
+        if (checkWinner() == null) {
+          if (playerTurn == 1) {
+            boardG.play(player1, square);
+            playerTurn = 2;
+          } else {
+            boardG.play(player2, square);
+            playerTurn = 1;
+          }
+        }
+        if (checkWinner() == player1.getMarker())
+          message.textContent = `${player1.getName()} won!`;
+        else if (checkWinner() == player2.getMarker())
+          message.textContent = `${player2.getName()} won!`;
+      };
+
+      const checkWinner = () => {
+        let board = boardG.getBoard();
+        // Check rows
+        for (let i = 0; i < 3; i++) {
+          if (
+            board[i][0] &&
+            board[i][0] === board[i][1] &&
+            board[i][0] === board[i][2]
+          ) {
+            return board[i][0];
+          }
         }
 
-        function createBoard(){
-            let board = [[,,,],[,,,],[,,,]];
-            const getBoard = () => board;
-            const play = (player, square) => {
-                board[square[0]][square[1]] = player.getMarker();
-            }
-            return {play, getBoard};
+        // Check columns
+        for (let j = 0; j < 3; j++) {
+          if (
+            board[0][j] &&
+            board[0][j] === board[1][j] &&
+            board[0][j] === board[2][j]
+          ) {
+            return board[0][j];
+          }
         }
 
-        function createGame(player1, player2, boardG){
-            let playerTurn = 1;
-            const getTurn = () => {return playerTurn;}
-            const makeMove = (square) => {
-                square = [Math.floor(square/3), square%3];
-                if (checkWinner() == null){
-                    if (playerTurn == 1) {
-                        boardG.play(player1, square);
-                        playerTurn = 2;
-                    } else {
-                        boardG.play(player2, square);
-                        playerTurn = 1;
-                    }
-                }
-                if      (checkWinner()==player1.getMarker()) message.textContent = `${player1.getName()} won!`;
-                else if (checkWinner()==player2.getMarker()) message.textContent = `${player2.getName()} won!`;
-            }
-
-            const checkWinner = () => {
-                let board = boardG.getBoard();
-                // Check rows
-                for (let i = 0; i < 3; i++) {
-                    if (board[i][0] && board[i][0] === board[i][1] && board[i][0] === board[i][2]) {
-                        return board[i][0];}}
-
-                // Check columns
-                for (let j = 0; j < 3; j++) {
-                    if (board[0][j] && board[0][j] === board[1][j] && board[0][j] === board[2][j]) {
-                        return board[0][j];}}
-
-                // Check diagonals
-                if (board[0][0] && board[0][0] === board[1][1] && board[0][0] === board[2][2]) {
-                    return board[0][0];}
-                if (board[0][2] && board[0][2] === board[1][1] && board[0][2] === board[2][0]) {
-                    return board[0][2];}
-
-                // No winner
-                return null;
-            }
-            return {makeMove, getTurn};
+        // Check diagonals
+        if (board[0][0] &&
+          board[0][0] === board[1][1] &&
+          board[0][0] === board[2][2]) {
+          return board[0][0];
         }
-    </script>
-    
+        if (
+          board[0][2] &&
+          board[0][2] === board[1][1] &&
+          board[0][2] === board[2][0]
+        ) {
+          return board[0][2];
+        }
+
+        // No winner
+        return null;
+      };
+      return { makeMove, getTurn };
+    }
+  </script>
 </body>
+
 </html>

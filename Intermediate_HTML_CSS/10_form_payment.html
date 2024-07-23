@@ -1,11 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <style>
-    body{
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    body {
       text-align: center;
       display: flex;
       justify-content: center;
@@ -24,21 +25,21 @@
       margin: 1em;
     }
 
-    section h2{
+    section h2 {
       align-items: center;
     }
 
-    div{
+    div {
       margin-bottom: 20px;
       display: flex;
       flex-flow: row wrap;
     }
 
-    input + span{
+    input+span {
       position: relative;
     }
 
-    input:required + span::after{
+    input:required+span::after {
       font-size: 0.7rem;
       position: absolute;
       content: "required!!";
@@ -49,27 +50,27 @@
       left: -68px;
     }
 
-    input + span::before{
+    input+span::before {
       position: absolute;
       right: -17px;
     }
 
     /* target input element that has invalid entry */
-    input:invalid{
+    input:invalid {
       border: 2px solid red;
     }
 
-    input:invalid + span::before{
+    input:invalid+span::before {
       content: "✖";
       color: red;
     }
 
-    input:valid + span::before{
+    input:valid+span::before {
       content: "✓";
       color: green;
     }
 
-    input:out-of-range + span::after {
+    input:out-of-range+span::after {
       color: white;
       background-color: red;
       width: 155px;
@@ -82,6 +83,7 @@
       background: #eee;
       border: 1px solid #ccc;
     }
+
     .disable {
       color: #aaa;
     }
@@ -92,6 +94,7 @@
       box-shadow: none;
       background-color: yellow;
     }
+
     input:read-write {
       box-shadow: inset 1px 1px 3px #ccc;
       border-radius: 8px;
@@ -99,17 +102,18 @@
 
     /* style of mark in radio check */
     input[type="radio"]::before {
-    display: block;
-    content: " ";
-    width: 10px;
-    height: 10px;
-    border-radius: 6px;
-    background-color: rgb(0, 183, 255);
-    font-size: 1.2em;
-    transform: translate(3px, 3px) scale(0);
-    transform-origin: center;
-    transition: all 0.3s ease-in;
+      display: block;
+      content: " ";
+      width: 10px;
+      height: 10px;
+      border-radius: 6px;
+      background-color: rgb(0, 183, 255);
+      font-size: 1.2em;
+      transform: translate(3px, 3px) scale(0);
+      transform-origin: center;
+      transition: all 0.3s ease-in;
     }
+
     input[type="radio"]:checked::before {
       transform: translate(3px, 3px) scale(1);
       transition: all 0.3s cubic-bezier(0.25, 0.25, 0.56, 2);
@@ -120,187 +124,189 @@
       outline: 2px solid red;
       animation: 0.4s linear infinite alternate outline-pulse;
     }
+
     @keyframes outline-pulse {
       from {
         outline: 2px solid red;
       }
+
       to {
         outline: 6px solid red;
       }
     }
-  
-    </style>
+  </style>
 </head>
+
 <body>
 
 
-    <form action="https://httpbin.org/post" method="post">
-        <h1>Payment form</h1>
-        <p>
-          Required fields are followed by
-          <strong><span aria-label="required">*</span></strong>.
-        </p>
-        <section>
-            <h2>Contact information</h2>
-            <fieldset>
-              <legend>Title</legend>
-              <ul>
-                <li>
-                  <label for="title_1">
-                    <input type="radio" id="title_1" name="title" value="A" />
-                    Ace
-                  </label>
-                </li>
-                <li>
-                  <label for="title_2">
-                    <input type="radio" id="title_2" name="title" value="K" />
-                    King
-                  </label>
-                </li>
-                <li>
-                  <label for="title_3">
-                    <input type="radio" id="title_3" name="title" value="Q" />
-                    Queen
-                  </label>
-                </li>
-              </ul>
-            </fieldset>
-            <div>
-              <label for="name">
-                <span>Name: </span>
-                <strong><span aria-label="required">*</span></strong>
-              </label>
-              <input type="text" id="name" name="username" required value="João Batista" readonly/>
-              <span></span>
-            </div>
-            <div>
-              <label for="mail">
-                <span>Email: </span>
-                <strong><span aria-label="required">*</span></strong>
-              </label>
-              <input type="email" id="mail" name="usermail" required />
-              <span></span>
-            </div>
-            <div>
-              <label for="pwd">
-                <span>Password: </span>
-                <strong><span aria-label="required">*</span></strong>
-              </label>
-              <input type="password" id="pwd" name="password" required />
-              <span></span>
-            </div>
-            <div>
-              <label for="phone">
-                <span>Telephone: </span>
-              </label>
-              <input type="tel" id="phone" name="phone" pattern="[0-9]{5}-[0-4]{4}"  placeholder="XXXXX-XXXX">
-              <span></span>
-            </div>
-            <div>
-              <label for="age">Age (must be 12+): </label>
-              <input id="age" name="age" type="number" min="12" max="120" required />
-              <span></span>
-            </div>    
-        </section>
-
-        <section>
-          <h2>Payment information</h2>
-          <p>
-            <label for="card">
-              <span>Card type:</span>
+  <form action="https://httpbin.org/post" method="post">
+    <h1>Payment form</h1>
+    <p>
+      Required fields are followed by
+      <strong><span aria-label="required">*</span></strong>.
+    </p>
+    <section>
+      <h2>Contact information</h2>
+      <fieldset>
+        <legend>Title</legend>
+        <ul>
+          <li>
+            <label for="title_1">
+              <input type="radio" id="title_1" name="title" value="A" />
+              Ace
             </label>
-            <select id="card" name="usercard">
-              <option value="visa">Visa</option>
-              <option value="mc">Mastercard</option>
-              <option value="amex">American Express</option>
-            </select>
-          </p>
-          <p>
-            <label for="number">
-              <span>Card number:</span>
-              <strong><span aria-label="required">*</span></strong>
+          </li>
+          <li>
+            <label for="title_2">
+              <input type="radio" id="title_2" name="title" value="K" />
+              King
             </label>
-            <input type="tel" id="number" name="cardnumber" required />
-          </p>
-          <p>
-            <label for="expiration">
-              <span>Expiration date:</span>
-              <strong><span aria-label="required">*</span></strong>
+          </li>
+          <li>
+            <label for="title_3">
+              <input type="radio" id="title_3" name="title" value="Q" />
+              Queen
             </label>
-            <input
-              type="text"
-              id="expiration"
-              name="expiration"
-              required
-              placeholder="MM/YY"
-              pattern="^(0[1-9]|1[0-2])\/([0-9]{2})$" />
-          </p>
+          </li>
+        </ul>
+      </fieldset>
+      <div>
+        <label for="name">
+          <span>Name: </span>
+          <strong><span aria-label="required">*</span></strong>
+        </label>
+        <input type="text" id="name" name="username" required value="João Batista" readonly />
+        <span></span>
+      </div>
+      <div>
+        <label for="mail">
+          <span>Email: </span>
+          <strong><span aria-label="required">*</span></strong>
+        </label>
+        <input type="email" id="mail" name="usermail" required />
+        <span></span>
+      </div>
+      <div>
+        <label for="pwd">
+          <span>Password: </span>
+          <strong><span aria-label="required">*</span></strong>
+        </label>
+        <input type="password" id="pwd" name="password" required />
+        <span></span>
+      </div>
+      <div>
+        <label for="phone">
+          <span>Telephone: </span>
+        </label>
+        <input type="tel" id="phone" name="phone" pattern="[0-9]{5}-[0-4]{4}" placeholder="XXXXX-XXXX">
+        <span></span>
+      </div>
+      <div>
+        <label for="age">Age (must be 12+): </label>
+        <input id="age" name="age" type="number" min="12" max="120" required />
+        <span></span>
+      </div>
+    </section>
 
-          <fieldset id="shipping">
-            <legend>Shipping adress</legend>
-              <div>
-                <label for="adress">Adress: </label>
-                <input type="text" id="adress" name="adress"></div>
-              <div>
-                <label for="zip">Zip/Postal code</label>
-                <input type="text" id="zip" name="adress"></div>
-          </fieldset>
+    <section>
+      <h2>Payment information</h2>
+      <p>
+        <label for="card">
+          <span>Card type:</span>
+        </label>
+        <select id="card" name="usercard">
+          <option value="visa">Visa</option>
+          <option value="mc">Mastercard</option>
+          <option value="amex">American Express</option>
+        </select>
+      </p>
+      <p>
+        <label for="number">
+          <span>Card number:</span>
+          <strong><span aria-label="required">*</span></strong>
+        </label>
+        <input type="tel" id="number" name="cardnumber" required />
+      </p>
+      <p>
+        <label for="expiration">
+          <span>Expiration date:</span>
+          <strong><span aria-label="required">*</span></strong>
+        </label>
+        <input type="text" id="expiration" name="expiration" required placeholder="MM/YY"
+          pattern="^(0[1-9]|1[0-2])\/([0-9]{2})$" />
+      </p>
 
-          <fieldset id="billing">
-            <legend>Billing adress</legend>
-            <div>
-              <label for="billing-checkbox">Same as shipping adress:</label>
-              <input type="checkbox" id="billing-checkbox" checked></div>
-            <div>
-              <label for="billing-adress" class="billing-label disable">Adress</label>
-              <input type="text" id="billing-adress" name="billing-adress" disabled required></div> <!-- INPUT DESATIVADO PELO CHECKBOX -->
-            <div>
-              <label for="billing-zip" class="billing-label disable">Zip/Postal code</label>
-              <input type="text" id="billing-zip" name="billing-zip" disabled required></div> <!-- INPUT DESATIVADO PELO CHECKBOX -->
+      <fieldset id="shipping">
+        <legend>Shipping adress</legend>
+        <div>
+          <label for="adress">Adress: </label>
+          <input type="text" id="adress" name="adress">
+        </div>
+        <div>
+          <label for="zip">Zip/Postal code</label>
+          <input type="text" id="zip" name="adress">
+        </div>
+      </fieldset>
 
-          </fieldset>
+      <fieldset id="billing">
+        <legend>Billing adress</legend>
+        <div>
+          <label for="billing-checkbox">Same as shipping adress:</label>
+          <input type="checkbox" id="billing-checkbox" checked>
+        </div>
+        <div>
+          <label for="billing-adress" class="billing-label disable">Adress</label>
+          <input type="text" id="billing-adress" name="billing-adress" disabled required>
+        </div> <!-- INPUT DESATIVADO PELO CHECKBOX -->
+        <div>
+          <label for="billing-zip" class="billing-label disable">Zip/Postal code</label>
+          <input type="text" id="billing-zip" name="billing-zip" disabled required>
+        </div> <!-- INPUT DESATIVADO PELO CHECKBOX -->
 
-          <div><button>Submit</button></div>
+      </fieldset>
 
-          <p>
-            <button type="submit">Validate the payment</button>
-          </p>
-        </section>
+      <div><button>Submit</button></div>
 
-    </form> 
+      <p>
+        <button type="submit">Validate the payment</button>
+      </p>
+    </section>
 
-    <script>
-      // CODIGO PARA DESATIVAR OS CAMPOS BILLING-LABEL ATRAVÉS DO CHECKBOX
-      // Wait for the page to finish loading
-      document.addEventListener(
-        "DOMContentLoaded",
-        () => {
-          // Attach `change` event listener to checkbox
-          document
-            .getElementById("billing-checkbox")
-            .addEventListener("change", toggleBilling);
-        },
-        false,
-      );
+  </form>
 
-      function toggleBilling() {
-        // Select the billing text fields
-        const billingItems = document.querySelectorAll('#billing input[type="text"]');
-        // Select the billing text labels
-        const billingLabels = document.querySelectorAll(".billing-label");
+  <script>
+    // CODIGO PARA DESATIVAR OS CAMPOS BILLING-LABEL ATRAVÉS DO CHECKBOX
+    // Wait for the page to finish loading
+    document.addEventListener(
+      "DOMContentLoaded",
+      () => {
+        // Attach `change` event listener to checkbox
+        document
+          .getElementById("billing-checkbox")
+          .addEventListener("change", toggleBilling);
+      },
+      false,
+    );
 
-        // Toggle the billing text fields and labels
-        for (let i = 0; i < billingItems.length; i++) {
-          billingItems[i].disabled = !billingItems[i].disabled;
+    function toggleBilling() {
+      // Select the billing text fields
+      const billingItems = document.querySelectorAll('#billing input[type="text"]');
+      // Select the billing text labels
+      const billingLabels = document.querySelectorAll(".billing-label");
 
-          if (billingLabels[i].getAttribute("class") === "billing-label disable") 
-          {
-            billingLabels[i].setAttribute("class", "billing-label");
-          } else {
-            billingLabels[i].setAttribute("class", "billing-label disable");
-          }
+      // Toggle the billing text fields and labels
+      for (let i = 0; i < billingItems.length; i++) {
+        billingItems[i].disabled = !billingItems[i].disabled;
+
+        if (billingLabels[i].getAttribute("class") === "billing-label disable") {
+          billingLabels[i].setAttribute("class", "billing-label");
+        } else {
+          billingLabels[i].setAttribute("class", "billing-label disable");
         }
       }
-    </script>
+    }
+  </script>
 </body>
+
 </html>

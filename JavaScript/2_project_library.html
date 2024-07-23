@@ -1,243 +1,259 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Document</title>
+  <link rel="stylesheet" href="style.css" />
 </head>
 <style>
-    body{
-        display: flex;
-        flex-direction: row;
-        height: 100vh;
-        margin: 0;
-    }
+  body {
+    display: flex;
+    flex-direction: row;
+    height: 100vh;
+    margin: 0;
+  }
 
-    .sidebar {
-        position: fixed;
-        left: -400px; /* Initially hidden */
-        top: 0;
-        width: 250px;
-        /* height: 100%; */
-        background-color: #f4f4f4;
-        box-shadow: -2px 0 5px rgba(0,0,0,0.5);
-        padding: 20px;
-        transition: left 0.5s;
-        z-index: 2;
-        /* align-items: flex-end; */
-        /* justifOfficey-content: space-between; */
-    }
+  .sidebar {
+    position: fixed;
+    left: -400px;
+    /* Initially hidden */
+    top: 0;
+    width: 250px;
+    /* height: 100%; */
+    background-color: #f4f4f4;
+    box-shadow: -2px 0 5px rgba(0, 0, 0, 0.5);
+    padding: 20px;
+    transition: left 0.5s;
+    z-index: 2;
+    /* align-items: flex-end; */
+    /* justifOfficey-content: space-between; */
+  }
 
-    .sidebar.active {
-        left: 0; /* Sidebar virowsible */
-    }
+  .sidebar.active {
+    left: 0;
+    /* Sidebar virowsible */
+  }
 
-    #sidebarForm{
-        display: flex;
-        flex-direction: column;
-    }
+  #sidebarForm {
+    display: flex;
+    flex-direction: column;
+  }
 
-    #sidebarForm div{
-        display: flex;
-        flex-direction: row;
-        justify-content: space-between;
-        margin: 10px 0px;
-    }
+  #sidebarForm div {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin: 10px 0px;
+  }
 
-    #sidebarForm div.checkbox {
-        justify-content: space-evenly;
-    }
+  #sidebarForm div.checkbox {
+    justify-content: space-evenly;
+  }
 
-    .main {
-        width: 100vw;
-    }
+  .main {
+    width: 100vw;
+  }
 
-    .library {
-        display: grid;
-        gap: 5px;
-        padding: 10px;
-        grid-template-columns: repeat(auto-fill, minmax(8rem, 1fr));
-        grid-template-rows: repeat(2, 1fr);
-    }
+  .library {
+    display: grid;
+    gap: 5px;
+    padding: 10px;
+    grid-template-columns: repeat(auto-fill, minmax(8rem, 1fr));
+    grid-template-rows: repeat(2, 1fr);
+  }
 
+  .gridItem {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    padding: 5px;
+    border: 2px solid #555555;
+    background-color: #f4f4f4;
+    border-radius: 5px;
+    font-size: 1rem;
+    /* width: 8rem; */
+    height: 10rem;
+    text-align: center;
+    overflow: hidden;
+    /* make sure it hides the content that overflows */
+    text-overflow: ellipsis;
+    /* give the beautiful '...' effect */
+  }
 
-    .gridItem {
-        display: flex;
-        flex-direction: column;
-        justify-content: space-around;
-        align-items: center;
-        padding: 5px;        
-        border: 2px solid #555555;
-        background-color: #f4f4f4;
-        border-radius: 5px;
-        font-size: 1rem;
-        /* width: 8rem; */
-        height: 10rem;
-        text-align: center;
-        overflow: hidden; /* make sure it hides the content that overflows */
-        text-overflow: ellipsis; /* give the beautiful '...' effect */
-    }
+  input:focus {
+    border-color: blue;
+    box-shadow: 2px 2px 5px rgba(0, 0, 255, 0.5);
+    outline: none;
+  }
 
-    input:focus{
-        border-color: blue;
-        box-shadow: 2px 2px 5px rgba(0, 0, 255, 0.5);
-        outline: none;
-    }
+  .gridItem>.title {
+    position: relative;
+    top: -17px;
+    font-size: 0.9rem;
+    height: 6rem;
+    width: 8rem;
+    font-weight: bold;
+    overflow: hidden;
+    /* make sure it hides the content that overflows */
+    text-overflow: ellipsis;
+    /* give the beautiful '...' effect */
+  }
 
-    .gridItem > .title {
-        position: relative;
-        top: -17px;
-        font-size: 0.9rem;
-        height: 6rem;
-        width: 8rem;
-        font-weight: bold;
-        overflow: hidden; /* make sure it hides the content that overflows */
-        text-overflow: ellipsis; /* give the beautiful '...' effect */
-    }
-    input{
-        border: 1px solid;
-    }
-    input:invalid {
-        border-color: red;
-    }
-    .gridItem > .author {
-        height: 2rem;
-    }
-    .gridItem > .read.checked::after {
-        font-size: 1rem;
-        content: "read";  /* Unicode for check mark */
-        color: rgb(0, 91, 0);
-    }
-    .gridItem > .pages {
-        font-size: 0.7rem;
-    }
-    .gridItem > .delete-button {
-            align-self: flex-end;
-            display: inline-block;
-            position: relative;
-            top: -3px;
-            cursor: pointer;
-            font-size: 18px;
-            color: #555555;
-            z-index: 1;
-        }
+  input {
+    border: 1px solid;
+  }
+
+  input:invalid {
+    border-color: red;
+  }
+
+  .gridItem>.author {
+    height: 2rem;
+  }
+
+  .gridItem>.read.checked::after {
+    font-size: 1rem;
+    content: "read";
+    /* Unicode for check mark */
+    color: rgb(0, 91, 0);
+  }
+
+  .gridItem>.pages {
+    font-size: 0.7rem;
+  }
+
+  .gridItem>.delete-button {
+    align-self: flex-end;
+    display: inline-block;
+    position: relative;
+    top: -3px;
+    cursor: pointer;
+    font-size: 18px;
+    color: #555555;
+    z-index: 1;
+  }
 </style>
+
 <body>
-    <div class="sidebar">
-        <form action="" id="sidebarForm">
-            <div>
-                <label for="title">Title:</label>
-                <input type="text" id="title" name="title" required>
-            </div>
-            <div>
-                <label for="author">Author:</label>
-                <input type="text" id="author" name="author">
-            </div>
-            <div>
-                <label for="pages">Pages:</label>
-                <input type="number" id="pages" name="pages">
-            </div>
-            <div class="checkbox">
-                <input type="checkbox" id="read" name="read">
-                <label for="read">Read</label>
-            </div>
-            <button type="submit">Submit</button>
-        </form>
-    </div>
-    <div class="main">
-        <button class="new-book">New book</button>
-        <div class="grid library"></div>
-    </div>
+  <div class="sidebar">
+    <form action="" id="sidebarForm">
+      <div>
+        <label for="title">Title:</label>
+        <input type="text" id="title" name="title" required />
+      </div>
+      <div>
+        <label for="author">Author:</label>
+        <input type="text" id="author" name="author" />
+      </div>
+      <div>
+        <label for="pages">Pages:</label>
+        <input type="number" id="pages" name="pages" />
+      </div>
+      <div class="checkbox">
+        <input type="checkbox" id="read" name="read" />
+        <label for="read">Read</label>
+      </div>
+      <button type="submit">Submit</button>
+    </form>
+  </div>
+  <div class="main">
+    <button class="new-book">New book</button>
+    <div class="grid library"></div>
+  </div>
 
-    <script>
-        const myLibrary = [];
-        const gridLibrary = document.querySelector(".library");
-        const newbookButton = document.querySelector(".new-book");
-        const submitBookForm = document.querySelector("#sidebarForm");
-        const sidebar = document.querySelector('.sidebar');
+  <script>
+    const myLibrary = [];
+    const gridLibrary = document.querySelector(".library");
+    const newbookButton = document.querySelector(".new-book");
+    const submitBookForm = document.querySelector("#sidebarForm");
+    const sidebar = document.querySelector(".sidebar");
 
-        function Book(title, author, pages, read){
-            this.title = title;
-            this.author = author;
-            this.pages = pages;
-            this.read = read;
-            this.info = function(){
-                return `${title} by ${author}, ${pages} pages, ${read ? 'already read' : 'not read yet'}`
-            }
-        }
+    function Book(title, author, pages, read) {
+      this.title = title;
+      this.author = author;
+      this.pages = pages;
+      this.read = read;
+      this.info = function () {
+        return `${title} by ${author}, ${pages} pages, ${read ? "already read" : "not read yet"
+          }`;
+      };
+    }
 
-        function addBookToLibrary(book){
-            myLibrary.push(book);
+    function addBookToLibrary(book) {
+      myLibrary.push(book);
 
-            gridItem = createBookItem(book);
-            gridLibrary.appendChild(gridItem);
-        }
+      gridItem = createBookItem(book);
+      gridLibrary.appendChild(gridItem);
+    }
 
-        function createBookItem(book){
-            const gridItem = document.createElement('div');
-            gridItem.classList.add('gridItem');
-            gridItem.id = myLibrary.length;
-            const bookName = document.createElement('div');
-            bookName.classList.add('title', 'dynamic-font');
-            const bookAuthor = document.createElement('div');
-            bookAuthor.classList.add('author');
-            const bookPages = document.createElement('div');
-            bookPages.classList.add('pages');
-            const bookRead = document.createElement('div');
-            bookRead.classList.add('read');
-            const bookDeleteButton = document.createElement('div');
-            bookDeleteButton.classList.add('delete-button');
+    function createBookItem(book) {
+      const gridItem = document.createElement("div");
+      gridItem.classList.add("gridItem");
+      gridItem.id = myLibrary.length;
+      const bookName = document.createElement("div");
+      bookName.classList.add("title", "dynamic-font");
+      const bookAuthor = document.createElement("div");
+      bookAuthor.classList.add("author");
+      const bookPages = document.createElement("div");
+      bookPages.classList.add("pages");
+      const bookRead = document.createElement("div");
+      bookRead.classList.add("read");
+      const bookDeleteButton = document.createElement("div");
+      bookDeleteButton.classList.add("delete-button");
 
-            gridItem.appendChild(bookDeleteButton);
-            bookDeleteButton.textContent = "\u00D7";
-            gridItem.appendChild(bookName);
-            bookName.textContent = book.title;
-            gridItem.appendChild(bookPages);
-            bookPages.textContent = `${book.pages} pages`;
-            gridItem.appendChild(bookRead);
-            gridItem.appendChild(bookAuthor);
-            bookAuthor.textContent = book.author;
+      gridItem.appendChild(bookDeleteButton);
+      bookDeleteButton.textContent = "\u00D7";
+      gridItem.appendChild(bookName);
+      bookName.textContent = book.title;
+      gridItem.appendChild(bookPages);
+      bookPages.textContent = `${book.pages} pages`;
+      gridItem.appendChild(bookRead);
+      gridItem.appendChild(bookAuthor);
+      bookAuthor.textContent = book.author;
 
-            if(book.read) bookRead.classList.add('checked');
+      if (book.read) bookRead.classList.add("checked");
 
-            bookDeleteButton.addEventListener('click', () => {
-                delete myLibrary[gridItem.id];
-                gridLibrary.removeChild(gridItem);
-            });
+      bookDeleteButton.addEventListener("click", () => {
+        delete myLibrary[gridItem.id];
+        gridLibrary.removeChild(gridItem);
+      });
 
-            return gridItem
-        }
+      return gridItem;
+    }
 
-        newbookButton.addEventListener('click', () => {
-            sidebar.classList.toggle('active');
-        })
+    newbookButton.addEventListener("click", () => {
+      sidebar.classList.toggle("active");
+    });
 
-        submitBookForm.addEventListener('submit', function(event) {
-            event.preventDefault(); // Prevent the form from submitting the traditional way
+    submitBookForm.addEventListener("submit", function (event) {
+      event.preventDefault(); // Prevent the form from submitting the traditional way
 
-            // Get form values
-            const title = document.getElementById('title').value;
-            const author = document.getElementById('author').value;
-            const pages = document.getElementById('pages').value;
-            const read =  document.getElementById('read').checked;
-            const newBook = new Book(title, author, pages, read);
-            addBookToLibrary(newBook);
-            sidebar.classList.remove('active');
-        })
+      // Get form values
+      const title = document.getElementById("title").value;
+      const author = document.getElementById("author").value;
+      const pages = document.getElementById("pages").value;
+      const read = document.getElementById("read").checked;
+      const newBook = new Book(title, author, pages, read);
+      addBookToLibrary(newBook);
+      sidebar.classList.remove("active");
+    });
 
-        // function adjustFontSize(gridItem) {
-        //     const title = gridItem.querySelector('.dynamic-font');
+    // function adjustFontSize(gridItem) {
+    //     const title = gridItem.querySelector('.dynamic-font');
 
-        //     let fontSize = 100; // Start with a large font size
-        //     title.style.fontSize = fontSize + 'px';
+    //     let fontSize = 100; // Start with a large font size
+    //     title.style.fontSize = fontSize + 'px';
 
-        //     // Reduce the font size until the text fits within the container
-        //     while (title.clientWidth > gridItem.clientWidth*0.9 && fontSize > 0) {
-        //         fontSize--;
-        //         title.style.fontSize = fontSize + 'px';
-        //     }
-        // }
-    </script>
+    //     // Reduce the font size until the text fits within the container
+    //     while (title.clientWidth > gridItem.clientWidth*0.9 && fontSize > 0) {
+    //         fontSize--;
+    //         title.style.fontSize = fontSize + 'px';
+    //     }
+    // }
+  </script>
 </body>
+
 </html>

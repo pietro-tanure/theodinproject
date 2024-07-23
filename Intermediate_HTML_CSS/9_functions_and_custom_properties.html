@@ -1,48 +1,58 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
 </head>
 <style>
-    :root {
-	--header: 3rem; /* custom property declaration */
-	--footer: 40px;
-	--main: calc(100vh - calc(var(--header, 4rem) + var(--footer))); /* use VAR to access a property. header = 3rem; footer = 40px so calc mixes these variables  */
+  :root {
+    --header: 3rem;
+    /* custom property declaration */
+    --footer: 40px;
+    --main: calc(100vh - calc(var(--header, 4rem) + var(--footer)));
+    /* use VAR to access a property. header = 3rem; footer = 40px so calc mixes these variables  */
     /* the var()   takes two parameters: (--variable, fallback) the fallback will be used if the variable is undefined */
-    }
-    body {
-        margin: 0;
-        padding: 0;
-        border: 0px solid transparent;
-        background: #7a7a7a;
-    }
-    #container {
-        border: 0px solid transparent;
-        height: 100vh;
-        color: white;
-    }
-    #container > * {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-    }
-    #header {
-        height: var(--header);
-        background: #111111;
-    }
-    #mainContent {
-        height: var(--main);
-        background: #343434;
-        margin-right: auto;
-        margin-left: auto;
-    }
-    #footer {
-        height: var(--footer);
-        background: #232323;
-    }
-    /* max function
+  }
+
+  body {
+    margin: 0;
+    padding: 0;
+    border: 0px solid transparent;
+    background: #7a7a7a;
+  }
+
+  #container {
+    border: 0px solid transparent;
+    height: 100vh;
+    color: white;
+  }
+
+  #container>* {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  #header {
+    height: var(--header);
+    background: #111111;
+  }
+
+  #mainContent {
+    height: var(--main);
+    background: #343434;
+    margin-right: auto;
+    margin-left: auto;
+  }
+
+  #footer {
+    height: var(--footer);
+    background: #232323;
+  }
+
+  /* max function
     width: max(100px, 4em, 50%);
 
     clamp function
@@ -52,107 +62,127 @@
     the largest value (60rem)
      */
 
-    /* the scope of the property is determined by the selector 
+  /* the scope of the property is determined by the selector 
     (--main-bg) is limited to cool-div
     --main-color affects the whole document since it is in root */
-    .cool-div {
+  .cool-div {
     --main-bg: red;
-    }
-    :root {
+  }
+
+  :root {
     --main-color: yellow;
-    }
-    .cool-paragraph {
+  }
+
+  .cool-paragraph {
     background-color: var(--main-bg);
     color: var(--main-color)
-    }
-    .boring-paragraph {
+  }
+
+  .boring-paragraph {
     background-color: var(--main-bg);
     color: var(--main-color)
-    }
+  }
 
 
-    :root {
+  :root {
     --border-btn: 1px solid rgb(36, 36, 36);
     --color-base-bg: rgb(240, 240, 240);
     --color-base-text: rgb(18, 18, 18);
     --color-btn-bg: rgb(220, 220, 220);
     --theme-name: "light";
-    }
-    @media (prefers-color-scheme: dark) { /* checks the prefered scheme on the browser and changes it */
+  }
+
+  @media (prefers-color-scheme: dark) {
+
+    /* checks the prefered scheme on the browser and changes it */
     :root {
-        --border-btn: 1px solid rgb(220, 220, 220);
-        --color-base-bg: rgb(18, 18, 18);
-        --color-base-text: rgb(240, 240, 240);
-        --color-btn-bg: rgb(36, 36, 36);
-        --theme-name: "dark";
+      --border-btn: 1px solid rgb(220, 220, 220);
+      --color-base-bg: rgb(18, 18, 18);
+      --color-base-text: rgb(240, 240, 240);
+      --color-btn-bg: rgb(36, 36, 36);
+      --theme-name: "dark";
     }
-    }
-    body {
+  }
+
+  body {
     background-color: var(--color-base-bg);
     color: var(--color-base-text);
     padding: 10px;
-    }
-    .container {
+  }
+
+  .container {
     display: flex;
     flex-direction: column;
     align-items: center;
-    }
-    p {
-    font-size: 1.5rem;
-    }
-    .theme-name::after {
-    content: var(--theme-name);
-    }
+  }
 
-    /* You can control the inheritance of a property using @property    THIS DOESNT WORK IN MOZILLA FIREFOX*/
-    @property --box-color {
-        syntax: "<color>";
-        inherits: false;
-        initial-value: cornflowerblue;
-    }
-    .parent {
+  p {
+    font-size: 1.5rem;
+  }
+
+  .theme-name::after {
+    content: var(--theme-name);
+  }
+
+  /* You can control the inheritance of a property using @property    THIS DOESNT WORK IN MOZILLA FIREFOX*/
+  @property --box-color {
+    syntax: "<color>";
+    inherits: false;
+    initial-value: cornflowerblue;
+  }
+
+  .parent {
     --box-color: green;
     background-color: var(--box-color);
-    }
-    .child {
+  }
+
+  .child {
     width: 80%;
     height: 40%;
     background-color: var(--box-color);
-    }
-
+  }
 </style>
+
 <body>
-    <body>
-		<div id="container">
-			<header id="header">< header/></header>
-			<main id="mainContent">< main content/></main>
-			<footer id="footer">< footer/></footer>
-		</div>
 
-        <div class='cool-div'>
-            <p class='cool-paragraph'>Check out my cool, red background!</p>
-        </div>
-        <p class='boring-paragraph'>I'm not in scope so I'm not cool.</p>
+  <body>
+    <div id="container">
+      <header id="header">
+        < header />
+      </header>
+      <main id="mainContent">
+        < main content />
+      </main>
+      <footer id="footer">
+        < footer />
+      </footer>
+    </div>
 
-        <div class="parent">
-            <p>Parent element</p>
-            <div class="child">
-                <p>Child element with inheritance disabled for --box-color.</p>
-            </div>
-        </div>
+    <div class='cool-div'>
+      <p class='cool-paragraph'>Check out my cool, red background!</p>
+    </div>
+    <p class='boring-paragraph'>I'm not in scope so I'm not cool.</p>
+
+    <div class="parent">
+      <p>Parent element</p>
+      <div class="child">
+        <p>Child element with inheritance disabled for --box-color.</p>
+      </div>
+    </div>
 
     <script>
-        /* variables in js */
-        /* get variable from inline style */
-        element.style.getPropertyValue("--my-var");
+      /* variables in js */
+      /* get variable from inline style */
+      element.style.getPropertyValue("--my-var");
 
-        /* get variable from wherever */
-        getComputedStyle(element).getPropertyValue("--my-var");
+      /* get variable from wherever */
+      getComputedStyle(element).getPropertyValue("--my-var");
 
-        /* set variable on inline style */
-        element.style.setProperty("--my-var", jsVar + 4);
+      /* set variable on inline style */
+      element.style.setProperty("--my-var", jsVar + 4);
     </script>
 
-	</body>
+  </body>
 </body>
+
 </html>
