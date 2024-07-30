@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <script>
+    function mergeSort(array) {
+      if (array.length < 2)
+        return array;
+      const midIndex = Math.floor(array.length / 2)
+      const leftHalf = array.slice(0, midIndex);
+      const rightHalf = array.slice(midIndex);
+      return merge(mergeSort(leftHalf), mergeSort(rightHalf));
+    }
+
+    function merge(array1, array2) {
+      index1 = 0, index2 = 0;
+      size1 = array1.length, size2 = array2.length;
+      mergedArray = [];
+      while (index1 < size1 && index2 < size2) {
+        if (array1[index1] < array2[index2]) {
+          mergedArray.push(array1[index1])
+          index1++;
+        }
+        else {
+          mergedArray.push(array2[index2])
+          index2++;
+        }
+      }
+      return mergedArray.concat(array1.slice(index1)).concat(array2.slice(index2))
+    }
+
+    const prettyPrint = (node, prefix = "", isLeft = true) => {
+      if (node === null)
+        return;
+      if (node.right !== null)
+        prettyPrint(node.right, `${prefix}${isLeft ? "│   " : "    "}`, false);
+      console.log(`${prefix}${isLeft ? "└── " : "┌── "}${node.value}`);
+      if (node.left !== null)
+        prettyPrint(node.left, `${prefix}${isLeft ? "    " : "│   "}`, true);
+    };
+
+    class Node {
+      constructor(value, left = null, right = null) {
+        this.value = value
+        this.left = left
+        this.right = right
+      }
+    }
+
+    class Tree {
+      constructor(array) {
+        let sortArray = mergeSort(array);
+        this.root = this.buildTree(sortArray)
+      }
+
+      buildTree(array) {
+        if (array.length == 0)
+          return null
+
+        let mid = Math.floor(array.length / 2);
+        let root = new Node(array[mid]);
+        root.left = this.buildTree(array.slice(0, mid))
+        root.right = this.buildTree(array.slice(mid + 1))
+        return root
+      }
+
+      insert(value) {
+        let currentNode = this.root
+        while (currentNode != null) {
+          if (value < currentNode.value) {
+            if (currentNode.left == null) {
+              currentNode.left = new Node(value)
+              break
+            }
+            currentNode = currentNode.left
+          }
+          else {
+            if (currentNode.right == null) {
+              currentNode.right = new Node(value)
+              break
+            }
+            currentNode = currentNode.right
+          }
+        }
+      }
+
+      deleteItem(value) {
+        let parentNode = null
+        let currentNode = this.root
+        let parentCurrent = null
+        let direction = ''
+
+        if (currentNode == value) {
+          direction = 'left'
+        } else {
+          while (currentNode != null) {
+            if (currentNode.left?.value == value) {
+              parentNode = currentNode
+              direction = 'left'
+              break
+            } else if (currentNode.right?.value == value) {
+              parentNode = currentNode
+              direction = 'right'
+              break
+            }
+
+            if (value < currentNode.value) {
+              currentNode = currentNode.left
+            } else {
+              currentNode = currentNode.right
+            }
+          }
+          currentNode = currentNode[direction]
+        }
+
+        if (currentNode.right != null) {
+          currentNode = currentNode.right
+          while (currentNode.left != null) {
+            parentCurrent = currentNode
+            currentNode = currentNode.left
+          }
+        }
+
+        parentNode[direction].value = currentNode.value;
+        if (parentCurrent)
+          parentCurrent.left = null
+      }
+
+      height(node) {
+        let height = 0
+        if (node == null)
+          return 0
+        height = 1 + Math.max(this.height(node.left), this.height(node.right))
+        return height
+      }
+
+      depth(node) {
+        return this.height(this.root) - this.height(node)
+      }
+
+      // isBalanced(node) {
+      //   inbalance =
+      // }
+
+      rebalance() {
+        let array = this.inOrder()
+        this.root = this.buildTree(array)
+      }
+
+      find(value) {
+        let currentNode = this.root
+        while (currentNode !== null
+          && currentNode.value != value) {
+          if (currentNode.value < value) {
+            currentNode = currentNode.right
+          } else {
+            currentNode = currentNode.left
+          }
+        }
+        return currentNode
+      }
+
+      inOrder(node = this.root, array = []) {
+        if (node === null) {
+          return array;
+        }
+        this.inOrder(node.left, array);
+        array.push(node.value);
+        this.inOrder(node.right, array);
+        return array;
+      }
+
+      preOrder(node = this.root, array = []) {
+        if (node === null) {
+          return array;
+        }
+        array.push(node.value);
+        this.inOrder(node.left, array);
+        this.inOrder(node.right, array);
+        return array;
+      }
+
+      postOrder(node = this.root, array = []) {
+        if (node === null) {
+          return array;
+        }
+        this.inOrder(node.left, array);
+        this.inOrder(node.right, array);
+        array.push(node.value);
+        return array;
+      }
+    }
+  </script>
+
+</body>
+
+</html>

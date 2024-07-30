@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <script>
+    class Node {
+      constructor(square, prev = null) {
+        this.square = square
+        this.prev = prev
+      }
+    }
+
+    function isValid(x, y, N) {
+      // Check if the position is within the bounds of the chessboard
+      return x >= 0 && y >= 0 && x < N && y < N;
+    }
+
+    function minKnightMoves(N, start, end) {
+      // Define all possible moves for a knight
+      const moves = [
+        [2, 1], [2, -1], [-2, 1], [-2, -1],
+        [1, 2], [1, -2], [-1, 2], [-1, -2]
+      ];
+
+      // Initialize the BFS queue with the starting position and move count
+      const queue = [];
+      let node = new Node([start[0], start[1]])
+      queue.push(node);
+
+      // Track visited positions to avoid processing the same position multiple times
+      const visited = new Array(N).fill(false).map(() => new Array(N).fill(false));
+      visited[start[0]][start[1]] = true;
+
+      while (queue.length > 0) {
+        node = queue.shift();
+        let x = node.square[0]
+        let y = node.square[1]
+
+        // If the target position is reached, return the number of moves
+        if (x === end[0] && y === end[1]) {
+          break;
+        }
+
+        // Explore all possible moves
+        for (const [dx, dy] of moves) {
+          const newX = x + dx;
+          const newY = y + dy;
+
+          if (isValid(newX, newY, N) && !visited[newX][newY]) {
+            visited[newX][newY] = true;
+            queue.push(new Node([newX, newY], prev = node));
+          }
+        }
+      }
+
+      let count = -1
+      path = []
+      while (node != null) {
+        path.push(node.square)
+        node = node.prev
+        count++
+      }
+
+      return [count, path];
+    }
+
+    // Example usage
+    const N = 8; // Size of the chessboard (8x8)
+    const start = [0, 0]; // Starting position A (row, column)
+    const end = [5, 3]; // Target position B (row, column)
+
+    let count, path
+    [count, path] = minKnightMoves(N, start, end); // Output: Minimum number of moves
+    console.log(`You went from ${start} to ${end} in ${count} moves`)
+
+  </script>
+
+</body>
+
+</html>

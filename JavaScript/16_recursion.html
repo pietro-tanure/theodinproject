@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <script>
+    // recursion-based solution
+    function pow(x, n) {
+      if (n == 1) {
+        return x;
+      } else {
+        return x * pow(x, n - 1);
+      }
+    }
+    // loop based solution
+    function powLoop(x, n) {
+      let result = 1;
+      for (let i = 0; i < n; i++) {
+        result *= x;
+      }
+      return result;
+    }
+
+
+    // Recursion can be used for traversal 
+    let company = { // the same object, compressed for brevity
+      sales: [{ name: 'John', salary: 1000 }, { name: 'Alice', salary: 1600 }],
+      development: {
+        sites: [{ name: 'Peter', salary: 2000 }, { name: 'Alex', salary: 1800 }],
+        internals: [{ name: 'Jack', salary: 1300 }]
+      }
+    };
+    // The function to do the job
+    function sumSalaries(department) {
+      if (Array.isArray(department)) { // case (1)
+        return department.reduce((prev, current) => prev + current.salary, 0); // sum the array
+      } else { // case (2)
+        let sum = 0;
+        for (let subdep of Object.values(department)) {
+          sum += sumSalaries(subdep); // recursively call for subdepartments, sum the results
+        }
+        return sum;
+      }
+    }
+    alert(sumSalaries(company)); // 7700
+
+
+    // Linked lists
+    let list0 = {
+      value: 1,
+      next: {
+        value: 2,
+        next: {
+          value: 3,
+          next: {
+            value: 4,
+            next: null
+          }
+        }
+      }
+    };
+    // alternative mode for creation
+    let list = { value: 1 };
+    list.next = { value: 2 };
+    list.next.next = { value: 3 };
+    list.next.next.next = { value: 4 };
+    list.next.next.next.next = null;
+    // prepend the new value to the list (add value to beginning of list)
+    list = { value: 10, next: list };
+    // print linked list
+    function printList(list) {
+      console.log(list.value);
+      if (list.next != null)
+        printList(list.next)
+    }
+    printList(list)
+
+    function sumTo(num) {
+      if (num == 1)
+        return 1
+      else
+        return num + sumTo(num - 1)
+    }
+    console.log(sumTo(10))
+
+    function factorial(n) {
+      return (n != 1) ? n * factorial(n - 1) : 1;
+    }
+    console.log(factorial(6))
+
+    function fib(n) {
+      return n <= 1 ? n : fib(n - 1) + fib(n - 2);
+    }
+    console.log(fib(5))
+
+    function mergeSort(array) {
+      if (array.length < 2)
+        return array;
+      const midIndex = Math.floor(array.length / 2)
+      const leftHalf = array.slice(0, midIndex);
+      const rightHalf = array.slice(midIndex);
+      return merge(mergeSort(leftHalf), mergeSort(rightHalf));
+    }
+
+    function merge(array1, array2) {
+      index1 = 0, index2 = 0;
+      size1 = array1.length, size2 = array2.length;
+      mergedArray = [];
+
+      while (index1 < size1 && index2 < size2) {
+        if (array1[index1] < array2[index2]) {
+          mergedArray.push(array1[index1])
+          index1++;
+        }
+        else {
+          mergedArray.push(array2[index2])
+          index2++;
+        }
+      }
+
+      return mergedArray.concat(array1.slice(index1)).concat(array2.slice(index2))
+    }
+
+    // Example usage
+    console.log(mergeSort([38, 27, 43, 3, 9, 82, 10]));
+
+  </script>
+</body>
+
+</html>

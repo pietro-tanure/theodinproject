@@ -1,0 +1,15 @@
+{
+    "name": "23_tests",
+    "version": "1.0.0",
+    "main": "23_tests_quokka.js",
+    "scripts": {
+        "test": "vitest --config vitest.config.ts"
+    },
+    "keywords": [],
+    "author": "",
+    "license": "ISC",
+    "description": "",
+    "devDependencies": {
+        "vitest": "^2.0.4"
+    }
+}
