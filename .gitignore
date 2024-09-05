@@ -4,3 +4,6 @@ Intermediate_HTML_CSS/EMMET Cheat Sheet_files
 Intermediate_HTML_CSS/EMMET Cheat Sheet.html
 JavaScript/6_ES6_module/webpack-demo/node_modules
 node_modules/
+
+.venv/
+.env/

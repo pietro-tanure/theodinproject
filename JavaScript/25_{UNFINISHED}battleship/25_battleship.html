@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <!-- <link rel="stylesheet" href="normalize.css"> -->
+  <style>
+    body {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      margin: 5px;
+    }
+
+    #getinfo {
+      grid-area: form;
+      display: grid;
+      grid-template-areas:
+        "player1 player2"
+        "div-start div-start";
+      /* grid-template-rows: 100px 30px; */
+      grid-template-columns: repeat(2, 1fr);
+      max-width: 800px;
+      width: 100%;
+      gap: 25px;
+    }
+
+    legend {
+      text-align: center;
+    }
+
+    legend~div {
+      padding-left: 20px;
+    }
+
+    h2 {
+      margin-top: 0;
+    }
+
+    .player {
+      padding: 10px;
+    }
+
+    #player1 {
+      grid-area: player1;
+      background-color: rgba(1, 187, 1, 0.5);
+    }
+
+    #player2 {
+      grid-area: player2;
+      background-color: rgba(154, 2, 2, 0.5);
+    }
+
+    input[type='text'] {
+      width: 80px;
+      display: block;
+    }
+
+    .invisible {
+      /* display: none; */
+      visibility: hidden;
+    }
+
+    .div-start {
+      grid-area: div-start;
+      margin: auto
+    }
+
+    button {
+      width: fit-content;
+    }
+
+    .messages {
+      margin: 10px;
+      font-weight: bold;
+    }
+
+    .boards {
+      display: flex;
+      flex-direction: row;
+      width: 100vw;
+      align-items: center;
+      justify-content: center;
+      gap: 20px;
+    }
+
+    @media (max-width: 768px) {
+      .boards {
+        flex-direction: column;
+        gap: 0px;
+      }
+    }
+
+    .boards>.space {
+      display: flex;
+      flex-direction: column;
+      text-align: center;
+      margin: 10px 0px;
+    }
+
+    .bMessage {
+      height: 1.5rem;
+      font-size: 0.9rem;
+    }
+
+    .board {
+      display: grid;
+      /* margin: 0px 10px; */
+      width: 95vw;
+      max-width: 400px;
+      aspect-ratio: 1;
+      background-color: rgb(0, 255, 255, 0.3);
+    }
+
+    #board1 {
+      border: 5px green solid;
+    }
+
+    #board2 {
+      border: 5px red solid
+    }
+
+    .square {
+      border: 1px solid black;
+    }
+
+    .active:hover {
+      box-shadow: 0 0 8px rgba(0, 0, 0, 1.0);
+      background-color: rgb(0, 255, 255, 0.3);
+      border: 1px solid black;
+    }
+
+    .active.clicked {
+      border: 2px solid black;
+    }
+  </style>
+</head>
+
+<body>
+  <form action="" id="getinfo">
+    <div class="player" id="player1">
+      <legend>
+        <h2>Player1</h2>
+      </legend>
+      <div>
+        <input type="radio" id="person1" name="player1_type" value="person" checked>
+        <label for="person1">Person</label>
+      </div>
+      <div>
+        <input type="radio" id="pc1" name="player1_type" value="pc">
+        <label for="pc1">PC</label>
+      </div>
+      <div>
+        <input type="text" id="player1Name" name="player" placeholder="Player1" value="Player1">
+      </div>
+    </div>
+
+    <div class="player" id="player2">
+      <legend>
+        <h2>Player2</h2>
+      </legend>
+      <div>
+        <input type="radio" id="person2" name="player2_type" value="person" checked>
+        <label for="person2">Person</label>
+      </div>
+      <div>
+        <input type="radio" id="pc2" name="player2_type" value="pc">
+        <label for="pc2">PC</label>
+      </div>
+      <div>
+        <input type="text" id="player2Name" name="player" placeholder="Player2" value="Player2">
+      </div>
+    </div>
+
+    <div class="div-start">
+      <button class="start" type="submit">Start game</button>
+    </div>
+  </form>
+
+  <div class="messages"></div>
+  <div class="boards"></div>
+
+  <script src="game.js"></script>
+  <script>
+    const form = document.querySelector("form");
+    const radios = document.querySelectorAll('input[type="radio"]')
+    const messages = document.querySelector(".messages");
+    const boards = document.querySelector(".boards");
+    const boardSize = 9
+    let boardMessage1;
+    let boardMessage2;
+    let player1
+    let player2
+    let list1 = [];
+    let list2 = [];
+    let phase = "position1"
+    let squaresBoard1
+    let squaresBoard2
+
+    radios.forEach(radio => {
+      radio.addEventListener('change', function () {
+        const playerDiv = this.closest('.player');
+        const playerTextInput = playerDiv.querySelector('input[type="text"]');
+
+        if (this.value == 'person') {
+          playerTextInput.classList.remove('invisible');
+        } else {
+          playerTextInput.classList.add('invisible');
+        }
+      });
+    });
+
+    form.addEventListener("submit", (event) => {
+      event.preventDefault();
+
+      createBoards();
+      createPlayers();
+    });
+
+    function createPlayers() {
+      let name = document.getElementById("player1Name").value;
+      let player1Type = document.querySelector('input[name="player1_type"]:checked').value;
+      player1 = { name, 'object': new Player(player1Type) }
+
+      name = document.getElementById("player2Name").value;
+      let player2Type = document.querySelector('input[name="player2_type"]:checked').value;
+      player2 = { name, 'object': new Player(player2Type) }
+    }
+
+    function createBoards() {
+      boards.innerHTML = '';
+
+      makeBoard(boardSize, 1);
+      squaresBoard1 = document.querySelectorAll('.square.board1');
+      squaresBoard1.forEach((square) => square.classList.add('active'))
+
+      makeBoard(boardSize, 2);
+      squaresBoard2 = document.querySelectorAll('.square.board1');
+      messages.textContent = "Player1 start choosing ship locations"
+
+      boardMessage1 = document.querySelector("#bMessage1");
+      boardMessage2 = document.querySelector("#bMessage2");
+      boardMessage1.textContent = "Ship sizes placed: 5(?), 4(?), 3(?), 3(?), 2(?), 2(?)"
+    }
+
+    function makeBoard(size, id) {
+      let space = document.createElement('div');
+      space.setAttribute("class", "space");
+      boards.appendChild(space);
+
+      let boardMessage = document.createElement('div');
+      boardMessage.setAttribute("class", "bMessage");
+      boardMessage.setAttribute("id", `bMessage${id}`);
+      space.appendChild(boardMessage);
+
+      let board = document.createElement('div');
+      board.setAttribute("class", "board");
+      board.setAttribute("id", `board${id}`);
+      board.style.setProperty("grid-template-rows", `repeat(${size}, 1fr)`);
+      board.style.setProperty("grid-template-columns", `repeat(${size}, 1fr)`);
+      for (let i = 0; i < size * size; i++) {
+        let square = document.createElement('div');
+        square.classList.add('square', `board${id}`);
+        square.id = `b${id}c${i}`;
+        addSquareEvents(square, id)
+        board.appendChild(square);
+      }
+      space.appendChild(board);
+    }
+
+    function addSquareEvents(square, boardId) {
+      square.addEventListener("click", () => {
+        if (phase = "position1") {
+          addShip(square, boardId);
+          squaresBoard1.forEach((square) => square.classList.remove('active'))
+          squaresBoard2.forEach((square) => square.classList.add('active'))
+
+        } else if (phase = "position2") {
+          addShip(square, boardId);
+
+        } else if (phase = "play") {
+          playTurn(square, boardId)
+        }
+      });
+    }
+
+    function playTurn(square, boardId) {
+      if (boardId == playerTurn) {
+        1
+      }
+    }
+
+    function addShip(square, boardId) {
+      square.classList.add("clicked");
+
+      if (square.parentNode.id == 'board1') {
+        list1.push(square.id.slice(3))
+        if (list1.length == 2) {
+          try {
+            player1.object.board.addShip(list1)
+            paintShip(player1.object.board.board, boardId)
+          }
+          catch (error) {
+            console.error('An error occurred:', error.message);
+          }
+          list1.forEach((el) => document.getElementById(`b${boardId}c${el}`).classList.remove("clicked"))
+          list1 = []
+        }
+      }
+      else {
+        list2.push(square.id.slice(3))
+        if (list2.length == 2) {
+          try {
+            player2.object.board.addShip(list2)
+            paintShip(player2.object.board.board, boardId)
+          }
+          catch (error) {
+            console.error('An error occurred:', error.message);
+          }
+          list2.forEach((el) => document.getElementById(`b${boardId}c${el}`).classList.remove("clicked"))
+          list2 = []
+        }
+      }
+    }
+
+    function paintShip(board, id) {
+      for (let i in board) {
+        for (let j in board[i]) {
+          if (board[i][j] != 0) {
+            elemId = i * boardSize + j * 1
+            document.getElementById(`b${id}c${elemId}`).textContent = board[i][j] - 1;
+          }
+        }
+      }
+    }
+
+  </script>
+
+</body>
+
+</html>
